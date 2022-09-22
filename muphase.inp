@@ -1,0 +1,31 @@
+1024	                 nx
+1024                      ny 
+10000                     nsteps
+10000                      nsteps for output
+10000                     nsteps for diagnostics
+1.00d0                   dt (=dx)    
+0.16666667d0             visc
+-5.00d0                  G
+1.00d0                   rhopsi          
+T                        Boolean for force
+0.6931472d0  		 rhoin
+0.0d0       		 u0
+0.0d0			 v0
+0.0d0                    u final 
+F                        boolean
+0.d0                     ! Reynolds number
+1.020d0                  ! density of the SOLID phase
+1.000d0                  ! density of the MELTED phase
+1.00d0                   ! relaxation-time
+0.51d0                   ! thermal relaxation-time
+283.d0                   ! temperature
+273.0d0                  ! Initial Temperature for the SOLID phase
+0.00008d0                ! gravity
+0.00                     ! volume fraction
+0.1d0                    ! Stefan Number
+10.0d0                   ! T_width
+100                      ! length
+2                        initial condition (1/2)
+BGK_2                    name of ouput file
+0                        0 does NOT read the dump
+
