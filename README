@@ -3,6 +3,8 @@ BGK-PCM
 
 
 ORIG: original code verision
+STEP_O: cleaned version, no optimization performed, improved Makefile
+STEP_1: more cleaned version, no optimization performed, inserted memory measurement
 
 
 
