@@ -1,21 +1,8 @@
 
+BGK-PCM
 
-* Modified version (STEP_7). OpenMP version
 
+ORIG: original code verision
 
-* to compile
-Only nvfortran suppor openacc so
-
-make FC=nvfortran FOPT="-acc -Minfo=acc -O3 -ta=tesla:cc75,managed" FIX="-DNVFORTRAN"
-
-For Quandro RTX 5000 (Turing arch)--> cc75
-For V100 			  --> cc70
-For A100 			  --> cc80
-
-Suggested exercise: 
-
-Exercise 1: 
-
-How is the performance behaviour increasing the problem size?  
 
 
