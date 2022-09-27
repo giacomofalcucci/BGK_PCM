@@ -36,6 +36,7 @@ moments.o \
 moments2.o \
 dump_in.o \
 dump_out.o \
+probe.o \
 setup.o \
 initialization.o \
 out2d.o \

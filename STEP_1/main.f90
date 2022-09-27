@@ -119,7 +119,7 @@
 
 ! Here I'm signal....
     if (mod(it,100).eq.0) then
-!        write(6,*) "timestep ", it, "done"
+       call probe
        call SYSTEM_CLOCK(icountL1, icount_rate, icount_max)
        time_inn_loop = real(icountL1-icountL0)/(icount_rate)
        write(6,1003)(time_inn_loop)/100,it,iter
