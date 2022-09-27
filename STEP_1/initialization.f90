@@ -27,10 +27,12 @@ enddo
 
 
  write(*,*) '****************************************************'
+ write(*,*) 'Nx   = ' , Nx
+ write(*,*) 'Ny   = ' , Ny
  write(*,*) 'alpha= ' , alpha
  write(*,*) 'kvisc= ' , kvisc
- write(*,*) 'u0= ' , u0
- write(*,*) 'T0= ' , T0
+ write(*,*) 'u0   = ' , u0
+ write(*,*) 'T0   = ' , T0
  write(*,*) '****************************************************'
 
  if (u0 .ge. cs/3.d0) then

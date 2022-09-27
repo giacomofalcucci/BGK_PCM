@@ -12,6 +12,10 @@
  real(kind=dp)    :: time_inn_loop
  real(kind=dp)    :: mem_start, mem_stop
 
+ write(6,*) "================================"
+ write(6,*) " Step_1                         "
+ write(6,*) "================================"
+
  call setup
 
 ! init section
