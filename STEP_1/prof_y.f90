@@ -6,10 +6,10 @@
 
   write(668,1005) it
   do j = 1, Ny
-     write (668,1002) i,           & 
+     write (668,1002) j,           & 
                       u(Nx/2,j),   & 
                       v(Nx/2,j),   & 
-                      rho(Nx/2,j), & 
+                      jho(Nx/2,j), & 
                       T(Nx/2,j),   & 
                       phi(Nx/2,j)
   end do
