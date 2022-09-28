@@ -9,6 +9,7 @@
 
  integer:: icountT0, icountT1, icount_rate, icount_max
  integer:: icountL0, icountL1
+ integer:: isignal
  real(kind=dp)    :: time_inn_loop
  real(kind=dp)    :: mem_start, mem_stop
 
@@ -17,6 +18,8 @@
  write(6,*) "================================"
 
  call setup
+!
+ isignal=500
 
 ! init section
  if (dump .eq. 0) then
@@ -113,10 +116,10 @@
 !GA    endif
 
 ! Here I'm signal....
-    if (mod(it,500).eq.0) then
+    if (mod(it,isignal).eq.0) then
        call SYSTEM_CLOCK(icountL1, icount_rate, icount_max)
        time_inn_loop = real(icountL1-icountL0)/(icount_rate)
-       write(6,1003)(time_inn_loop)/100,it,iter
+       write(6,1003)(time_inn_loop)/isignal,it,iter
        call SYSTEM_CLOCK(icountL0, icount_rate, icount_max)
     endif
 

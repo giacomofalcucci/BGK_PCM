@@ -4,7 +4,7 @@
 
   use shared
 
-     write (666,*) it,             u(Nx/2,Ny/2),   v(Nz/2,Ny/2), & 
+     write (666,1001) it,             u(Nx/2,Ny/2),   v(Nz/2,Ny/2), & 
                     rho(Nx/2,Ny/2), T(Nx/2,Ny/2), phi(Nz/2,Ny/2)
 
 ! formats...

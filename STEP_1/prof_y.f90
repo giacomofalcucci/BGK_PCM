@@ -9,7 +9,7 @@
      write (668,1002) j,           & 
                       u(Nx/2,j),   & 
                       v(Nx/2,j),   & 
-                      jho(Nx/2,j), & 
+                      rho(Nx/2,j), & 
                       T(Nx/2,j),   & 
                       phi(Nx/2,j)
   end do
