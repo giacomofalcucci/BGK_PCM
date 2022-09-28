@@ -37,6 +37,8 @@ moments2.o \
 dump_in.o \
 dump_out.o \
 probe.o \
+prof_x.o \
+prof_y.o \
 setup.o \
 initialization.o \
 out2d.o \

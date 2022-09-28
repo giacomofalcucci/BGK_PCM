@@ -20,7 +20,7 @@
          do i = 0, Nx+1
             write (523,*) i, l, 1
          end do
-       End do
+      end do
 !
       write (523, '(A,I15)') 'POINT_DATA', (Nx+2) * (Ny+2) * 1
       write (523, '(A)') 'SCALARS DENSITY float 1'

@@ -74,18 +74,15 @@
 
     if(mod(it,1000).eq.0) then
       call diag    
+      call probe
+      call prof_x
+      call prof_y
+
+      open(unit=150,file='log.dat',position='append')
+      write(150,"(I8,A,F10.4)") it,' ',mass
+      close(150)
     endif
-
-    open(unit=150,file='log.dat',position='append')
-    write(150,"(I8,A,F10.4)") it,' ',mass
-    close(150)
-
-!!!!    do i=1,Nx
-!!!!      if(phi(i,int(Ny/2)).eq.0) then
-!!!!        write(128,*) it, i, phi(i,int(Ny/2))
-!!!!      endif
-!!!!    enddo
-
+  
     if (it == it0) then
        write(*,*) it
     end if 
@@ -105,21 +102,18 @@
        end do
        close(160)
 
-!       write(*,*) 'saving results...'
-       !call dump_out
        itOut = itOut + deltaOut
-       !write(*,*) 'dumping completed'
     end if
 
-    if(mod(it,10000).eq.0) then
-       call dump_out
-       !itOut = itOut + deltaOut
-       write(*,*) 'dumping completed'
-    endif
+!GA    if(mod(it,10000).eq.0) then
+!GA       call dump_out
+!GA       !itOut = itOut + deltaOut
+!GA       write(*,*) 'dumping completed'
+!GA       Dump to fix/check
+!GA    endif
 
 ! Here I'm signal....
-    if (mod(it,100).eq.0) then
-       call probe
+    if (mod(it,500).eq.0) then
        call SYSTEM_CLOCK(icountL1, icount_rate, icount_max)
        time_inn_loop = real(icountL1-icountL0)/(icount_rate)
        write(6,1003)(time_inn_loop)/100,it,iter
