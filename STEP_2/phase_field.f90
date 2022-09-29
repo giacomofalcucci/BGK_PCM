@@ -14,11 +14,6 @@ f_minus = 0.5d0
 ! Compute Phi Selector (Succi, PRL 2001)
 
 phi_prec(:,:)    = phi(:,:)
-k_plus(:,:)      = 0.0d0
-k_minus(:,:)     = 0.0d0
-react_plus(:,:)  = 0.0d0
-react_minus(:,:) = 0.0d0
-react_tot(:,:)   = 0.0d0
 
 !$OMP PARALLEL DEFAULT(shared) &
 !$OMP PRIVATE(i,j,k_plus,k_minus)
@@ -35,18 +30,32 @@ react_tot(:,:)   = 0.0d0
   enddo
  enddo 
 !$OMP END DO
-k_plus(:,:)  = 0.0d0
-k_minus(:,:) = 0.0d0
 !!!!$OMP SECTION
 !$OMP DO
  do j = 1,Ny
   do i = 1,Nx
-   do k=0,npop-1
-       k_plus(i,j)  = k_plus(i,j) + (0.5d0*(1.+phi(i+cx(k),j+cy(k))))**2.0d0
-       k_minus(i,j) = k_minus(i,j)+ (0.5d0*(1.-phi(i+cx(k),j+cy(k))))**2.0d0
-   enddo
-       k_plus(i,j)  = (k_plus(i,j)  / 8.0d0) * react_plus(i,j)
-       k_minus(i,j) = (k_minus(i,j) / 8.0d0) * react_minus(i,j)
+     k_plus(i,j) = + (0.5d0*(1.+phi(i  ,j  )))**2.0d0 &
+                   + (0.5d0*(1.+phi(i+1,j  )))**2.0d0 & 
+                   + (0.5d0*(1.+phi(i  ,j+1)))**2.0d0 & 
+                   + (0.5d0*(1.+phi(i-1,j  )))**2.0d0 & 
+                   + (0.5d0*(1.+phi(i  ,j-1)))**2.0d0 & 
+                   + (0.5d0*(1.+phi(i+1,j+1)))**2.0d0 & 
+                   + (0.5d0*(1.+phi(i-1,j+1)))**2.0d0 & 
+                   + (0.5d0*(1.+phi(i-1,j-1)))**2.0d0 & 
+                   + (0.5d0*(1.+phi(i+1,j-1)))**2.0d0   
+
+     k_minus(i,j) =+ (0.5d0*(1.-phi(i  ,j  )))**2.0d0 &
+                   + (0.5d0*(1.-phi(i+1,j  )))**2.0d0 &
+                   + (0.5d0*(1.-phi(i  ,j+1)))**2.0d0 &
+                   + (0.5d0*(1.-phi(i-1,j  )))**2.0d0 &
+                   + (0.5d0*(1.-phi(i  ,j-1)))**2.0d0 &
+                   + (0.5d0*(1.-phi(i+1,j+1)))**2.0d0 &
+                   + (0.5d0*(1.-phi(i-1,j+1)))**2.0d0 &
+                   + (0.5d0*(1.-phi(i-1,j-1)))**2.0d0 &
+                   + (0.5d0*(1.-phi(i+1,j-1)))**2.0d0  
+
+      k_plus(i,j)  = (k_plus(i,j)  / 8.0d0) * react_plus(i,j)
+      k_minus(i,j) = (k_minus(i,j) / 8.0d0) * react_minus(i,j)
   enddo
  enddo
 !$OMP END DO
@@ -54,9 +63,9 @@ k_minus(:,:) = 0.0d0
 !$OMP DO
  do j=1,Ny
    do i=1,Nx
-    react_tot (i,j) = f_plus * k_plus(i,j)  * (1. - phi_prec(i,j)) - &
-                      f_minus* k_minus(i,j) * (1. + phi_prec(i,j)) 
-  
+       react_tot (i,j) = f_plus * k_plus(i,j)  * (1. - phi_prec(i,j)) - &
+                      f_minus* k_minus(i,j) * (1. + phi_prec(i,j))
+
     phi (i,j)       = phi_prec(i,j) + react_tot(i,j)
 
    enddo

@@ -9,33 +9,65 @@
 
         do j=1,Ny
          do i=1,Nx
-           pxx=0.0d0
-           pyy=0.0d0
-           pxy=0.0d0
 !
-           Txx=0.0d0
-           Tyy=0.0d0
-           Txy=0.0d0
-           do k=0,npop-1
-             fneq = ff(i,j,k) - ffeq(i,j,k)
-             gneq = gg(i,j,k) - ggeq(i,j,k)
              !non equilibrium part of the momentum flux tensor
-             pxx=pxx + (cx(k)*cx(k) - cs2) *  fneq
-             pyy=pyy + (cy(k)*cy(k) - cs2) *  fneq
-             pxy=pxy + (cx(k)*cy(k))       *  fneq
-!
-             Txx=Txx + (cx(k)*cx(k) - cs2) *  gneq
-             Tyy=Tyy + (cy(k)*cy(k) - cs2) *  gneq
-             Txy=Txy + (cx(k)*cy(k))       *  gneq
-           enddo
+           pxx=    + (            - cs2) *  (fp(0,i,j) - feq(0,i,j)) & 
+                   + (1           - cs2) *  (fp(1,i,j) - feq(1,i,j)) & 
+                   + (            - cs2) *  (fp(2,i,j) - feq(2,i,j)) & 
+                   + (1           - cs2) *  (fp(3,i,j) - feq(3,i,j)) & 
+                   + (            - cs2) *  (fp(4,i,j) - feq(4,i,j)) & 
+                   + (1           - cs2) *  (fp(5,i,j) - feq(5,i,j)) & 
+                   + (1           - cs2) *  (fp(6,i,j) - feq(6,i,j)) & 
+                   + (1           - cs2) *  (fp(7,i,j) - feq(7,i,j)) & 
+                   + (1           - cs2) *  (fp(8,i,j) - feq(8,i,j))   
 
+           pyy=    + (            - cs2) *  (fp(0,i,j) - feq(0,i,j)) & 
+                   + (            - cs2) *  (fp(1,i,j) - feq(1,i,j)) & 
+                   + (1           - cs2) *  (fp(2,i,j) - feq(2,i,j)) & 
+                   + (            - cs2) *  (fp(3,i,j) - feq(3,i,j)) & 
+                   + (1           - cs2) *  (fp(4,i,j) - feq(4,i,j)) & 
+                   + (1           - cs2) *  (fp(5,i,j) - feq(5,i,j)) & 
+                   + (1           - cs2) *  (fp(6,i,j) - feq(6,i,j)) & 
+                   + (1           - cs2) *  (fp(7,i,j) - feq(7,i,j)) & 
+                   + (1           - cs2) *  (fp(8,i,j) - feq(8,i,j))   
+
+           pxy=    + (1                ) *  (fp(5,i,j) - feq(5,i,j)) & 
+                   - (1                ) *  (fp(6,i,j) - feq(6,i,j)) & 
+                   + (1                ) *  (fp(7,i,j) - feq(7,i,j)) & 
+                   - (1                ) *  (fp(8,i,j) - feq(8,i,j))   
+!
+           Txx=    + (            - cs2) *  (gp(0,i,j) - geq(0,i,j)) &
+                   + (1           - cs2) *  (gp(1,i,j) - geq(1,i,j)) &
+                   + (            - cs2) *  (gp(2,i,j) - geq(2,i,j)) &
+                   + (1           - cs2) *  (gp(3,i,j) - geq(3,i,j)) &
+                   + (            - cs2) *  (gp(4,i,j) - geq(4,i,j)) &
+                   + (1           - cs2) *  (gp(5,i,j) - geq(5,i,j)) &
+                   + (1           - cs2) *  (gp(6,i,j) - geq(6,i,j)) &
+                   + (1           - cs2) *  (gp(7,i,j) - geq(7,i,j)) &
+                   + (1           - cs2) *  (gp(8,i,j) - geq(8,i,j))  
+
+           Tyy=    + (            - cs2) *  (gp(0,i,j) - geq(0,i,j)) & 
+                   + (            - cs2) *  (gp(1,i,j) - geq(1,i,j)) &
+                   + (1           - cs2) *  (gp(2,i,j) - geq(2,i,j)) &
+                   + (            - cs2) *  (gp(3,i,j) - geq(3,i,j)) &
+                   + (1           - cs2) *  (gp(4,i,j) - geq(4,i,j)) &
+                   + (1           - cs2) *  (gp(5,i,j) - geq(5,i,j)) &
+                   + (1           - cs2) *  (gp(6,i,j) - geq(6,i,j)) &
+                   + (1           - cs2) *  (gp(7,i,j) - geq(7,i,j)) &
+                   + (1           - cs2) *  (gp(8,i,j) - geq(8,i,j))  
+
+           Txy=    + (1                ) *  (gp(5,i,j) - geq(5,i,j)) &
+                   - (1                ) *  (gp(6,i,j) - geq(6,i,j)) &
+                   + (1                ) *  (gp(7,i,j) - geq(7,i,j)) &
+                   - (1                ) *  (gp(8,i,j) - geq(8,i,j))  
+!
            do k=0,npop-1
-             ff(i,j,k)= ffeq(i,j,k) + ((0.5d0 * w_eq(k)) / (cs2*cs2)) * &
+             f(k,i,j)= feq(k,i,j) + ((0.5d0 * w_eq(k)) / (cs2*cs2)) * &
                          ((cx(k)*cx(k) - cs2) * pxx + &
                          ( cy(k)*cy(k) - cs2) * pyy +  &
                            2.0d0 *cx(k)*cy(k)  * pxy )
 !
-             gg(i,j,k)= ggeq(i,j,k) + ((0.5d0 * w_eq(k)) / (cs2*cs2)) * &
+             g(k,i,j)= geq(k,i,j) + ((0.5d0 * w_eq(k)) / (cs2*cs2)) * &
                          ((cx(k)*cx(k) - cs2) * Txx + &
                          ( cy(k)*cy(k) - cs2) * Tyy +  &
                            2.0d0 *cx(k)*cy(k)  * Txy )

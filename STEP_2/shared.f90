@@ -36,8 +36,13 @@ module shared
  real(kind=mykind), allocatable   :: k_plus(:,:),k_minus(:,:)
  real(kind=mykind), allocatable   :: flag(:,:)
 ! 3 indexes matrices 
- real(kind=mykind), allocatable   :: ff(:,:,:), ffeq(:,:,:), ftemp(:,:,:)
- real(kind=mykind), allocatable   :: gg(:,:,:), ggeq(:,:,:)
+ real(kind=mykind), allocatable   :: f(:,:,:)
+ real(kind=mykind), allocatable   :: fp(:,:,:)          ! pre collision pop (buffer)
+ real(kind=mykind), allocatable   :: feq(:,:,:)
+ real(kind=mykind), allocatable   :: ftemp(:,:,:)
+ real(kind=mykind), allocatable   :: g(:,:,:)
+ real(kind=mykind), allocatable   :: gp(:,:,:)
+ real(kind=mykind), allocatable   :: geq(:,:,:)
  integer                      :: Nx, Ny, it, iter, it0, a, b, samplex, sampley
  integer                      :: i, j, k, m
  character                    :: id(50)

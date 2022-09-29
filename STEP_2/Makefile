@@ -11,20 +11,20 @@ COPT        = -O3
 FIX         =
 
 ifdef INTEL
+FC=ifx -fpp
 FC=ifort -fpp
 CC=icc 
-COPT = -Ofast -mtune=skylake-avx512
+COPT = -O3 -mtune=skylake-avx512
 endif
 
 ifdef NV
 FC=nvfortran  -cpp
 CC=nvcc 
-COPT = -fast -Minfo=all
+COPT = -O3 -Minfo=all
 endif
 
 
 OBJS = \
-setup.o \
 BC_f.o \
 BC_g.o \
 phase_field.o \
@@ -35,8 +35,13 @@ equilibrium.o \
 streaming.o \
 moments.o \
 moments2.o \
+momentsPre.o \
 dump_in.o \
 dump_out.o \
+probe.o \
+prof_x.o \
+prof_y.o \
+setup.o \
 initialization.o \
 out2d.o \
 mass_check.o \

@@ -9,14 +9,17 @@
 
  integer:: icountT0, icountT1, icount_rate, icount_max
  integer:: icountL0, icountL1
+ integer:: isignal
  real(kind=dp)    :: time_inn_loop
  real(kind=dp)    :: mem_start, mem_stop
 
- write(6.*) "================================"
- write(6.*) " Step_1                         "
- write(6.*) "================================"
+ write(6,*) "================================"
+ write(6,*) " Step_2                         "
+ write(6,*) "================================"
 
  call setup
+!
+ isignal=500
 
 ! init section
  if (dump .eq. 0) then
@@ -57,7 +60,7 @@
     call BC_f
     call BC_g
     call streaming
-    call moments
+    call momentsPre
     call moments2
 !
     call phase_field
@@ -74,30 +77,28 @@
 
     if(mod(it,1000).eq.0) then
       call diag    
+      call probe
+      call prof_x
+      call prof_y
+
+      open(unit=150,file='log.dat',position='append')
+      write(150,"(I8,A,F10.4)") it,' ',mass
+      close(150)
     endif
-
-    open(unit=150,file='log.dat',position='append')
-    write(150,"(I8,A,F10.4)") it,' ',mass
-    close(150)
-
-!!!!    do i=1,Nx
-!!!!      if(phi(i,int(Ny/2)).eq.0) then
-!!!!        write(128,*) it, i, phi(i,int(Ny/2))
-!!!!      endif
-!!!!    enddo
-
+  
     if (it == it0) then
        write(*,*) it
     end if 
  
     if (it == itOut .or. it == iter) then
 
+!      vtk dump
        call out2d
 !
-       write(6,1010) it, mass 
-       write(6,1011) Nu(samplex), Nu2(samplex), Nu3(samplex)
-       write(6,1012) gradTwall2(samplex), Tavg(samplex)
-!
+!GA      write(6,1010) it, mass 
+!GA      write(6,1011) Nu(samplex), Nu2(samplex), Nu3(samplex)
+!GA      write(6,1012) gradTwall2(samplex), Tavg(samplex)
+!GA
        open(unit=160,file='Nusselt.dat')
        do i = 1,samplex
           write(160,"(I8,A,F10.4,A,F10.4,A,F10.4)")  & 
@@ -105,24 +106,21 @@
        end do
        close(160)
 
-!       write(*,*) 'saving results...'
-       !call dump_out
        itOut = itOut + deltaOut
-       !write(*,*) 'dumping completed'
     end if
 
-    if(mod(it,10000).eq.0) then
-       call dump_out
-       !itOut = itOut + deltaOut
-       write(*,*) 'dumping completed'
-    endif
+!GA    if(mod(it,10000).eq.0) then
+!GA       call dump_out
+!GA       !itOut = itOut + deltaOut
+!GA       write(*,*) 'dumping completed'
+!GA       Dump to fix/check
+!GA    endif
 
 ! Here I'm signal....
-    if (mod(it,100).eq.0) then
-!        write(6,*) "timestep ", it, "done"
+    if (mod(it,isignal).eq.0) then
        call SYSTEM_CLOCK(icountL1, icount_rate, icount_max)
        time_inn_loop = real(icountL1-icountL0)/(icount_rate)
-       write(6,1003)(time_inn_loop)/100,it,iter
+       write(6,1003)(time_inn_loop)/isignal,it,iter
        call SYSTEM_CLOCK(icountL0, icount_rate, icount_max)
     endif
 

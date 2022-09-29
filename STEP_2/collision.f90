@@ -11,8 +11,8 @@
        if (flag(i,j) .eq. 0) then
 
           do k = 0,npop-1
-             ff(i,j,k) = ff(i,j,k)-omega_f*(ff(i,j,k)-ffeq(i,j,k))
-             gg(i,j,k) = gg(i,j,k)-omega_g*(gg(i,j,k)-ggeq(i,j,k))
+             f(k,i,j) = f(k,i,j)-omega_f*(f(k,i,j)-feq(k,i,j))
+             g(k,i,j) = g(k,i,j)-omega_g*(g(k,i,j)-geq(k,i,j))
           end do
 
        end if

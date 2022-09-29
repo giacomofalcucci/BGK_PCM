@@ -13,16 +13,14 @@ subroutine moments
           rho(i,j) = 0.d0
           T(i,j) = 0.d0
           do k = 0,npop-1
-             rho(i,j) = rho(i,j) + ff(i,j,k)
-             T(i,j) = T(i,j) + gg(i,j,k)
+             rho(i,j) = rho(i,j) + f(k,i,j)
+             T(i,j) = T(i,j) + g(k,i,j)
           end do
   
           irho = 1.d0/rho(i,j)
    
-          u(i,j) = irho*(ff(i,j,1)-ff(i,j,3)+ff(i,j,5) & 
-                        -ff(i,j,6)-ff(i,j,7)+ff(i,j,8))
-          v(i,j) = irho*(ff(i,j,2)-ff(i,j,3)+ff(i,j,5) & 
-                        +ff(i,j,6)-ff(i,j,7)-ff(i,j,8))
+          u(i,j)    = irho*(f(1,i,j)-f(3,i,j)+f(5,i,j)-f(6,i,j)-f(7,i,j)+f(8,i,j))
+          v(i,j)    = irho*(f(2,i,j)-f(4,i,j)+f(5,i,j)+f(6,i,j)-f(7,i,j)-f(8,i,j))
  
        end if
     end do
