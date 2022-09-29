@@ -2,65 +2,33 @@
 
  use shared
 
-!$OMP PARALLEL DEFAULT(shared) &
-!$OMP PRIVATE(i,j)
-!!!!$OMP DO
-!$OMP SECTIONS
-!$OMP SECTION
- do j = 1,Ny
-    do i = Nx,1,-1
+ do j=1,Ny
+    do i=1,Nx
        if (flag(i,j) .eq. 0) then
-          ff(i,j,4) = ff(i,  j+1,4)
-          ff(i,j,8) = ff(i-1,j+1,8)
-          gg(i,j,4) = gg(i,  j+1,4)
-          gg(i,j,8) = gg(i-1,j+1,8)
+!          
+          fp(0,i,j) = f(0,i  ,j  )
+          fp(1,i,j) = f(1,i-1,j  )
+          fp(2,i,j) = f(2,i,  j-1)
+          fp(3,i,j) = f(3,i+1,j  )
+          fp(4,i,j) = f(4,i,  j+1)
+          fp(5,i,j) = f(5,i-1,j-1)
+          fp(6,i,j) = f(6,i+1,j-1)
+          fp(7,i,j) = f(7,i+1,j+1)
+          fp(8,i,j) = f(8,i-1,j+1)
+!          
+          gp(0,i,j) = g(0,i  ,j  )
+          gp(1,i,j) = g(1,i-1,j  )
+          gp(2,i,j) = g(2,i,  j-1)
+          gp(3,i,j) = g(3,i+1,j  )
+          gp(4,i,j) = g(4,i,  j+1)
+          gp(5,i,j) = g(5,i-1,j-1)
+          gp(6,i,j) = g(6,i+1,j-1)
+          gp(7,i,j) = g(7,i+1,j+1)
+          gp(8,i,j) = g(8,i-1,j+1)
+!          
        end if
     end do
  end do
-!!!!$OMP END DO
-!!!!
-!!!!$OMP DO
-!$OMP SECTION
- do j = Ny,1,-1
-    do i = 1,Nx
-       if (flag(i,j) .eq. 0) then
-          ff(i,j,2) = ff(i,  j-1,2)
-          ff(i,j,6) = ff(i+1,j-1,6)
-          gg(i,j,2) = gg(i,  j-1,2)
-          gg(i,j,6) = gg(i+1,j-1,6)
-       end if
-    end do
- end do
-!!!!$OMP END DO
-!!!!
-!!!!$OMP DO
-!$OMP SECTION
- do j = 1,Ny
-    do i = 1,Nx
-       if (flag(i,j) .eq. 0) then
-          ff(i,j,3) = ff(i+1,j  ,3)
-          ff(i,j,7) = ff(i+1,j+1,7)
-          gg(i,j,3) = gg(i+1,j  ,3)
-          gg(i,j,7) = gg(i+1,j+1,7)
-       end if
-    end do
- end do
-!!!!$OMP END DO
-!!!!
-!!!!$OMP DO
-!$OMP SECTION
- do j = Ny,1,-1
-    do i = Nx,1,-1
-       if (flag(i,j) .eq. 0) then
-          ff(i,j,1) = ff(i-1,j  ,1)
-          ff(i,j,5) = ff(i-1,j-1,5)
-          gg(i,j,1) = gg(i-1,j  ,1)
-          gg(i,j,5) = gg(i-1,j-1,5)
-       end if
-    end do
- end do
-!!!!!!$OMP END DO
-!!!!!!$OMP END PARALLEL
 
 !$OMP END SECTIONS
 !$OMP END PARALLEL
