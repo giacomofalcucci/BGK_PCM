@@ -33,7 +33,6 @@ regular.o \
 collision.o \
 streaming.o \
 moments.o \
-moments2.o \
 momentsPre.o \
 dump_in.o \
 dump_out.o \
