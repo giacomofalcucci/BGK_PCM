@@ -3,7 +3,12 @@ module shared
  implicit none
 ! 
  integer, parameter           :: dp = selected_real_kind(15,307)
+ integer, parameter           :: sp = kind(1.)
+#ifdef SINGLEPRECISION
+ integer, parameter           :: mykind = sp
+#else
  integer, parameter           :: mykind = dp
+#endif
  integer, parameter           :: n_th = 1
  integer, parameter           :: npop = 9
 ! 
