@@ -7,5 +7,7 @@ STEP_O: cleaned version, no optimization performed, improved Makefile
 STEP_1: more cleaned version, no optimization performed, inserted memory measurement
 STEP_2: some subroutine optimization
 STEP_3: some inter-subroutine optimization
+STEP_7: final (?) optimized serial version
+STEP_DO_CONCURRENT: Do conocurrent version
 
 

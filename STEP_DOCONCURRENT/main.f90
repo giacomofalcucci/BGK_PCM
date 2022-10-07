@@ -51,7 +51,6 @@
  write(6,1007) mem_start
  call SYSTEM_CLOCK(icountL0, icount_rate, icount_max)
  icountT0=icountL0
-!$acc data copy(f0,f1,f2,f3,f4,f5,f6,f7,f8,g0,g1,g2,g3,g4,g5,g6,g7,g8)
  do it = it0,iter
 
 #ifdef DEBUG
@@ -96,12 +95,12 @@
 !GA      write(6,1011) Nu(samplex), Nu2(samplex), Nu3(samplex)
 !GA      write(6,1012) gradTwall2(samplex), Tavg(samplex)
 !GA
-       open(unit=160,file='Nusselt.dat')
-       do i = 1,samplex
-          write(160,"(I8,A,F10.4,A,F10.4,A,F10.4)")  & 
-                                       i,' ',Nu(i),' ',Nu2(i),' ',Nu3(i)
-       end do
-       close(160)
+!GA       open(unit=160,file='Nusselt.dat')
+!GA       do i = 1,samplex
+!GA          write(160,"(I8,A,F10.4,A,F10.4,A,F10.4)")  & 
+!GA                                       i,' ',Nu(i),' ',Nu2(i),' ',Nu3(i)
+!GA       end do
+!GA       close(160)
 
        itOut = itOut + deltaOut
     end if
@@ -122,7 +121,6 @@
     endif
 
  end do
-!$acc end data 
 
  call SYSTEM_CLOCK(icountT1, icount_rate, icount_max)
  time_inn_loop = real(icountT1-icountT0)/(icount_rate)

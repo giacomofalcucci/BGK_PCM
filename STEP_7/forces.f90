@@ -2,12 +2,12 @@
  
  use shared
 
-force_x(:,:) = 0.0d0
-force_y(:,:) = 0.0d0
+! force_x(:,:) = 0.0d0
+! force_y(:,:) = 0.0d0
 
 ! First: Update the Temperature via the latent heat release/absorption
 
- T_prec(:,:) = T(:,:)
+! T_prec(:,:) = T(:,:)
 
  delta_T = T0 - T_in_sol   !T_width*2.d0
 
@@ -20,7 +20,7 @@ force_y(:,:) = 0.0d0
 
     do j=1,Ny
      do i=1,Nx
-         T(i,j)=T_prec(i,j)-(delta_T/stefan_number*(phi(i,j)-phi_prec(i,j))/2.0d0) !*omega_g
+         T(i,j)=T(i,j)-(delta_T/stefan_number*(phi(i,j)-phi_prec(i,j))/2.0d0) !*omega_g
      enddo
     enddo
 !!!#!!$OMP END DO
@@ -39,7 +39,7 @@ force_y(:,:) = 0.0d0
 ! Third: Compute SOLID DRAG  (hic sunt leones....)
     do j=1,Ny
      do i=1,Nx
-      force_x(i,j) = force_x(i,j) - 1.0d0*u(i,j)*(1.d0-phi(i,j))*0.50d0
+      force_x(i,j) =              - 1.0d0*u(i,j)*(1.d0-phi(i,j))*0.50d0
       force_y(i,j) = force_y(i,j) - 1.0d0*v(i,j)*(1.d0-phi(i,j))*0.50d0
      enddo
     enddo

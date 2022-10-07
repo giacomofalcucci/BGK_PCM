@@ -138,15 +138,15 @@
  write(6,*) "=========================================="
 
 ! formats...
-1001    format(" INFO: Init   time           ",1(e14.6,1x))
-1003    format(" INFO: Mean   time           ",1(e14.6,1x),i8,"/",i8)
-1004    format(" INFO: Main loop time        ",1(e14.6,1x))
-1005    format(" INFO: Mean time for timestep",1(e14.6,1x))
-1006    format(" INFO: Mlups                 ",1(f14.6,1x))
-1007    format(" INFO: Memory used (MB)      ",1(f14.6,1x))
-1010    format(" CHECK: it, mass             ",1(i8,f10.4))
-1011    format(" CHECK: Nu, Nu2, Nu3         ",3(f10.4,1x))
-1012    format(" CHECK: gradTwall2, Tavg     ",2(f10.4,1x))
+1001    format("INFO: Init   time           ",1(e14.6,1x))
+1003    format("INFO: Mean   time           ",1(e14.6,1x),i8,"/",i8)
+1004    format("INFO: Main loop time        ",1(e14.6,1x))
+1005    format("INFO: Mean time for timestep",1(e14.6,1x))
+1006    format("INFO: Mlups                 ",1(f14.6,1x))
+1007    format("INFO: Memory used (MB)      ",1(f14.6,1x))
+1010    format("CHECK: it, mass             ",1(i8,f10.4))
+1011    format("CHECK: Nu, Nu2, Nu3         ",3(f10.4,1x))
+1012    format("CHECK: gradTwall2, Tavg     ",2(f10.4,1x))
 
 
  end program main
