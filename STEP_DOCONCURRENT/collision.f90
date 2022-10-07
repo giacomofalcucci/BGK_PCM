@@ -11,11 +11,7 @@
  real(kind=mykind)   ::  pxx,pyy,pxy,fneq
  real(kind=mykind)   ::  Txx,Tyy,Txy,gneq
 
- do concurrent (j = 1:Ny, i = 1:Nx) &
-         local(uu,vv,uv,upv,umv,feq00,feq01,feq02,feq03,feq04,feq05, & 
-               feq06,feq07,feq08,geq00,geq01,geq02,geq03,geq04,geq05,&
-               geq06,geq07,geq08,ft00,ft01,ft02,ft03,ft04,ft05,ft06,ft07,&
-               ft08,gt00,gt01,gt02,gt03,gt04,gt05,gt06,gt07,gt08)
+ do concurrent (j = 1:Ny, i = 1:Nx)
 
           uu = u(i,j)*u(i,j)
           vv = v(i,j)*v(i,j)

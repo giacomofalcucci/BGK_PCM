@@ -5,7 +5,7 @@
  !======================================== WEST
 
 ! do j = 1,Ny
- do concurrent(j=0:Ny+1)
+ do concurrent(j=1:Ny)
     uu = u(0,j)*u(0,j)
     vv = v(0,j)*v(0,j)
     uv = 1.5d0*(uu+vv)

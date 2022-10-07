@@ -16,10 +16,11 @@ f_minus = 0.5d0
 
 ! Compute Phi Selector (Succi, PRL 2001)
 
+!     phi_prec(:,:) = phi(:,:)
 
- do concurrent(j = 1:Ny,i=1:Nx)
-    phi_prec(i,j) = phi(i,j)
- enddo
+do concurrent(j = 0:Ny+1,i=0:Nx+1)
+     phi_prec(i,j) = phi(i,j)
+enddo
 
 !$OMP DO
  do concurrent(j = 1:Ny,i=1:Nx)

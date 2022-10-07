@@ -6,7 +6,7 @@
 
  if     (westBC_st .eq. 0) then
     ! periodic
-    do concurrent(j=1:Ny)
+    do concurrent(j=0:Ny+1)
          f0(0,j) = f0(Nx,j)
          f1(0,j) = f1(Nx,j)
          f2(0,j) = f2(Nx,j)
