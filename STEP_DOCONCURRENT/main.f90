@@ -14,7 +14,7 @@
  real(kind=dp)    :: mem_start, mem_stop
 
  write(6,*) "================================"
- write(6,*) " Step_5                         "
+ write(6,*) " DO CONCURRENT version         "
  write(6,*) "================================"
 
  call setup
