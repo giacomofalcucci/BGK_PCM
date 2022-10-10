@@ -1,0 +1,35 @@
+  iter                50000         ! tempo totale della simulazione
+  noutput                2       ! numero di output
+  dump                   0           ! restart [0 , 1] 
+  Nx		       1024          ! nodi x-direction
+  Ny                   4096          ! nodi y-direction
+  Re		         0.d0          ! Reynolds number
+  rho0                   1.0240d0      ! density of the SOLID phase
+  rho1                   1.000d0       ! density of the MELTED phase
+  tau_f                  1.000d0       ! relaxation-time
+  tau_g                  0.510d0       ! thermal relaxation-time
+  T0                   283.d0          ! temperature
+  T_in_sol	       273.0d0         ! Initial Temperature for the SOLID phase
+  grav			 0.00025d0    ! gravity
+  eps			 0.00	       ! volume fraction
+  stefan_number		 0.10d0	       ! Stefan Number	
+  T_width               10.0d0	       ! T_width
+  length               2048.d0        ! lunghezza caratteristica
+  westBC_st 		 4             ! west bc  - structured   [0 , 1 , 2 , 4]
+  eastBC_st 	 	 4             ! east bc  - structured   [0 , 3 , 4    ]
+  northBC_st             4             ! north bc - structured   [1 , 4 , 5 , 6]
+  southBC_st             4             ! south bc - structured   [4 , 6        ]
+
+
+
+ INSTRUCTIONS
+
+ General              ====>  0 : false       / 1 : true
+
+
+ Boundary conditions:
+
+ 0 : periodic			1 : velocità uniforme		2 : profilo parabolico di velocità
+ 3 : pressione imposta  	4 : no-slip			5 : symmetric
+ 6 : open-boundary		7 : free-slip		       10 : nothing (overlapping boundary)
+ 
