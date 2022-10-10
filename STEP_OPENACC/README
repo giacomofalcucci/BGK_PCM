@@ -1,0 +1,8 @@
+
+
+* to parallelize using OpenACC (nvfortran compiler)
+
+GPU (V100): make NV=1 FIX="-acc -Minfo=acc -ta=tesla:cc70,managed "
+GPU (A100): make NV=1 FIX="-acc -Minfo=acc -ta=tesla:cc80,managed "
+
+For single precision add " -DSINGLEPRECISION "
