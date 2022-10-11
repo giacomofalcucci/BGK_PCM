@@ -3,7 +3,6 @@ subroutine moments
  use shared
 
  do concurrent(j=1:Ny,i=1:Nx)
-
           rho(i,j) = f0(i,j)+f1(i,j)+f2(i,j)+f3(i,j)+f4(i,j) & 
                     +f5(i,j)+f6(i,j)+f7(i,j)+f8(i,j)
           irho = 1.d0/rho(i,j)
@@ -13,7 +12,6 @@ subroutine moments
 
           T(i,j)   = g0(i,j)+g1(i,j)+g2(i,j)+g3(i,j)+g4(i,j) & 
                     +g5(i,j)+g6(i,j)+g7(i,j)+g8(i,j)
- 
  end do
 
 

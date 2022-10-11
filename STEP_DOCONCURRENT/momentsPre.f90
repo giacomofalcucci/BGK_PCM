@@ -2,8 +2,7 @@ subroutine momentspre
 
  use shared
 
- do concurrent(j = 1:Ny)
-    do i = 1, Nx
+ do concurrent(j = 1:Ny,i = 1:Nx)
 
        rho(i,j) = fp0(i,j)+fp1(i,j)+fp2(i,j)+fp3(i,j)+fp4(i,j) &
                  +fp5(i,j)+fp6(i,j)+fp7(i,j)+fp8(i,j)
@@ -19,7 +18,6 @@ subroutine momentspre
        T2(i,j)   = T(i,j)
        u2(i,j)   = u(i,j)
        v2(i,j)   = v(i,j)
-    end do
  end do
 
 !write(*,*) 'CHECK1 : T(nx/2,ny/2) =', T(nx/2,ny/2)

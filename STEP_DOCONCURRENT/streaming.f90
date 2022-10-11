@@ -12,9 +12,7 @@
           fp6(i,j) = f6(i+1,j-1)
           fp7(i,j) = f7(i+1,j+1)
           fp8(i,j) = f8(i-1,j+1)
-end do
-!          
- do concurrent (j=1:Ny, i=1:Nx)
+
           gp0(i,j) = g0(i  ,j  )
           gp1(i,j) = g1(i-1,j  )
           gp2(i,j) = g2(i,  j-1)

@@ -11,7 +11,7 @@
  real(kind=mykind)   ::  pxx,pyy,pxy,fneq
  real(kind=mykind)   ::  Txx,Tyy,Txy,gneq
 
- do concurrent (j = 1:Ny, i = 1:Nx)
+ do concurrent (j = 1:Ny,i = 1:Nx)
 
           uu = u(i,j)*u(i,j)
           vv = v(i,j)*v(i,j)

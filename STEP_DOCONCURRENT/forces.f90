@@ -41,7 +41,6 @@
     do i=1,Nx
       if(phi(i,int(Ny/2)).ge.0.0d0.and.phi(i+1,int(Ny/2)).lt.0.0d0) then
         location = float((i+(i+1))/2)
-!!        write(*,*) 'phi = 0, intrface located at ', location, int(Ny/2)
         write(128,*) it, it*alpha/(Nx*Nx), location
       endif
     enddo
