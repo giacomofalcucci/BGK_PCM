@@ -23,6 +23,12 @@ CC=nvcc
 COPT = -O3 -Minfo=all
 endif
 
+ifdef IBM
+FC=xlf90  -qpreprocess
+CC=xlc 
+COPT = -O4 
+endif
+
 
 OBJS = \
 BC_f.o \

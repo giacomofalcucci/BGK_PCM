@@ -14,7 +14,7 @@
  real(kind=dp)    :: mem_start, mem_stop
 
  write(6,*) "===================================="
- write(6,*) " Serial Optimized versiob (Step_5) "
+ write(6,*) " Serial Optimized version (Step_5) "
  write(6,*) "===================================="
 
  call setup
