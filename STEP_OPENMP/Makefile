@@ -19,7 +19,7 @@ endif
 
 ifdef NV
 FC=nvfortran  -cpp -mp
-CC=nvcc 
+CC=nvc 
 COPT = -O3 -Minfo=all
 endif
 
