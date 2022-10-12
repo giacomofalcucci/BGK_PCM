@@ -18,9 +18,15 @@ COPT = -O3 -mtune=skylake-avx512
 endif
 
 ifdef NV
-FC=nvfortran  -cpp
+FC=nvfortran  -cpp -mp
 CC=nvcc 
 COPT = -O3 -Minfo=all
+endif
+
+ifdef IBM
+FC=xlf90_r  -qpreprocess -qsmp=omp
+CC=xlc 
+COPT = -O4
 endif
 
 
