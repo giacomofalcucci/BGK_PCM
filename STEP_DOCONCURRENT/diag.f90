@@ -5,12 +5,12 @@
  use shared
  implicit none
 
- real(kind=8)    :: Ray, Gras, Four, Pr, beta_gras, &
-                    Delta_Temp,vert_flux_t(0:Ny+1),horiz_flux_t(0:Nx+1), &
-                    Nus, Fou, theta, Nus_comp, grad_T, Nus_comp_2, melt, &
-                    melt_front, melt_front_expected, theta1, theta2
+ real(kind=mykind)    :: Ray, Gras, Four, Pr, beta_gras, &
+                         Delta_Temp,vert_flux_t(0:Ny+1),horiz_flux_t(0:Nx+1), &
+                         Nus, Fou, theta, Nus_comp, grad_T, Nus_comp_2, melt, &
+                         melt_front, melt_front_expected, theta1, theta2
     
- integer(kind=8) :: i_liq, i_sol, Ny_2, i_fix
+ integer(kind=mykind) :: i_liq, i_sol, Ny_2, i_fix
 
  Ny_2  = int(Ny/2)
  i_liq = int(Nx/20)
