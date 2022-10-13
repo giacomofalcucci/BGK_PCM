@@ -48,7 +48,7 @@ setup.o \
 initialization.o \
 out2d.o \
 mass_check.o \
-media.o \
+field_check.o \
 diag.o \
 get_mem.o \
 main.o \

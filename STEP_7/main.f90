@@ -67,7 +67,6 @@
 !
     call collision
     call moments
-!    call media
 
 
     if(mod(it,1000).eq.0) then
@@ -75,7 +74,7 @@
       call probe
       call prof_x
       call prof_y
-      call mass_check
+      call field_check
 
       open(unit=150,file='log.dat',position='append')
       write(150,"(I8,A,F10.4)") it,' ',mass
@@ -83,7 +82,7 @@
     endif
   
     if (it == it0) then
-       write(*,*) it
+       write(*,*) "starting at ", it
     end if 
  
     if (it == itOut .or. it == iter) then
