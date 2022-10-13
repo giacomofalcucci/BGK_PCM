@@ -2,26 +2,29 @@ subroutine moments
 
  use shared
 
-!$OMP PARALLEL DEFAULT(shared) &
-!$OMP PRIVATE(i,j,k) 
-!$OMP SECTIONS
-!$OMP SECTION
+ real(kind=mykind)  :: temp_T, temp_u, temp_v 
+
+
  do j = 1,Ny
     do i = 1,Nx
 
           rho(i,j) = f0(i,j)+f1(i,j)+f2(i,j)+f3(i,j)+f4(i,j) & 
                     +f5(i,j)+f6(i,j)+f7(i,j)+f8(i,j)
-          T(i,j)   = g0(i,j)+g1(i,j)+g2(i,j)+g3(i,j)+g4(i,j) & 
+          irho = 1.d0/rho(i,j)
+
+          temp_T   = g0(i,j)+g1(i,j)+g2(i,j)+g3(i,j)+g4(i,j) & 
                     +g5(i,j)+g6(i,j)+g7(i,j)+g8(i,j)
   
-          irho = 1.d0/rho(i,j)
    
-          u(i,j)    = irho*(f1(i,j)-f3(i,j)+f5(i,j)-f6(i,j)-f7(i,j)+f8(i,j))
-          v(i,j)    = irho*(f2(i,j)-f4(i,j)+f5(i,j)+f6(i,j)-f7(i,j)-f8(i,j))
+          temp_u    = irho*(f1(i,j)-f3(i,j)+f5(i,j)-f6(i,j)-f7(i,j)+f8(i,j))
+          temp_v    = irho*(f2(i,j)-f4(i,j)+f5(i,j)+f6(i,j)-f7(i,j)-f8(i,j))
  
+          T(i,j)     = (temp_T+T2(i,j))*0.50d0  ! THIS, I have to check....
+   
+          u(i,j)     = (temp_u+u2(i,j))*0.50d0
+          v(i,j)     = (temp_v+v2(i,j))*0.50d0
     end do
  end do
-
 
 #ifdef DEBUG_GA
 !k = 0    ! Col OMP DO deve stare FUORI, con la SECTION DENTRO....!!!!! :O
@@ -49,9 +52,6 @@ k = 0
 write(*,*) 'CHECK2 : T(nx/2,ny/2) =', T(nx/2,ny/2)
 #endif
 !
-
-
-
 #ifdef DEBUG_GA
  temp_aver = 0
  do j=1,Ny

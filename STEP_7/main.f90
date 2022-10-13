@@ -14,7 +14,7 @@
  real(kind=dp)    :: mem_start, mem_stop
 
  write(6,*) "===================================="
- write(6,*) " Serial Optimized version (Step_5) "
+ write(6,*) " Serial Optimized version (Step_7) "
  write(6,*) "===================================="
 
  call setup
@@ -67,7 +67,7 @@
 !
     call collision
     call moments
-    call media
+!    call media
 
 
     if(mod(it,1000).eq.0) then
