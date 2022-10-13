@@ -67,23 +67,23 @@
 !
     call collision
     call moments
-    call media
 
 
-!GA1    if(mod(it,1000).eq.0) then
-!GA1      call diag    
-!GA1      call probe
-!GA1      call prof_x
-!GA1      call prof_y
-!GA1      call mass_check
+    if(mod(it,5000).eq.0) then
+      call diag    
+      call probe
+      call prof_x
+      call prof_y
+      call field_check
 
 !GA1      open(unit=150,file='log.dat',position='append')
 !GA1      write(150,"(I8,A,F10.4)") it,' ',mass
 !GA1      close(150)
-!GA1    endif
+
+    endif
   
     if (it == it0) then
-       write(*,*) it
+        write(*,*) "starting at ", it
     end if 
  
     if (it == itOut .or. it == iter) then
