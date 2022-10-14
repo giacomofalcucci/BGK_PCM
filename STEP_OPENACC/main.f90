@@ -67,8 +67,6 @@
     call forces
     call collision
     call moments
-    call media
-
 
     if(mod(it,1000).eq.0) then
       call diag    

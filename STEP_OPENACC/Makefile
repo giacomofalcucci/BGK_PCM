@@ -42,7 +42,6 @@ setup.o \
 initialization.o \
 out2d.o \
 mass_check.o \
-media.o \
 diag.o \
 get_mem.o \
 main.o \
