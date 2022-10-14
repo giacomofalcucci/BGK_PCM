@@ -76,8 +76,6 @@
  allocate(T(0:Nx+1,0:Ny+1),T_prec(0:Nx+1,0:Ny+1))
  allocate(T2(0:Nx+1,0:Ny+1))
  allocate(phi(0:Nx+1,0:Ny+1),phi_prec(0:Nx+1,0:Ny+1))
- allocate(force_x(0:Nx+1,0:Ny+1),force_y(0:Nx+1,0:Ny+1))
- allocate(react_tot(1:Nx,1:Ny))
 
  w_eq0 = 4.d0/9.d0
  w_eq1 = 1.d0/9.d0
