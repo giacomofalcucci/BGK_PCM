@@ -41,6 +41,7 @@ prof_y.o \
 setup.o \
 initialization.o \
 out2d.o \
+field_check.o \
 mass_check.o \
 diag.o \
 get_mem.o \

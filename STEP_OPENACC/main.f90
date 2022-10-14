@@ -73,7 +73,7 @@
       call probe
       call prof_x
       call prof_y
-      call mass_check
+      call field_check
 
       open(unit=150,file='log.dat',position='append')
       write(150,"(I8,A,F10.4)") it,' ',mass
