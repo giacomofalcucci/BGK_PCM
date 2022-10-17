@@ -9,7 +9,7 @@ real(kind=mykind) :: react_plus,react_minus
 real(kind=mykind) :: k_plus,k_minus
 
 T_act  = 0.0d0
-T_crit = 273.0
+T_crit = 273.d0
 
 f_plus  = 0.5d0
 f_minus = 0.5d0 
@@ -17,15 +17,6 @@ f_minus = 0.5d0
 ! Compute Phi Selector (Succi, PRL 2001)
 
 
-!GA1 !$OMP PARALLEL DEFAULT(NONE)  &
-!GA1 !$OMP PRIVATE(i,j)            &
-!GA1 !$OMP SHARED(Nx,Ny)           &
-!GA1 !$OMP PRIVATE(react_plus,react_minus)           &
-!GA1 !$OMP PRIVATE(k_plus,k_minus)           &
-!GA1 !$OMP SHARED(f_plus,f_minus)           &
-!GA1 !$OMP SHARED(phi,phi_prec,T)  &
-!GA1 !$OMP SHARED(T_crit,T_act,T_width)
-!GA1 !$OMP DO
 !$OMP target teams distribute parallel do collapse(2)
 do j = 0,Ny+1
   do i = 0,Nx+1
@@ -33,7 +24,6 @@ do j = 0,Ny+1
   enddo
 enddo
 
-!GA1 !$OMP DO
 !$OMP target teams distribute parallel do collapse(2)
  do j = 1,Ny
   do i = 1,Nx
@@ -52,25 +42,24 @@ enddo
               + (0.5d0*(1.+phi_prec(i+1,j-1)))**2.0d0   
 
      k_minus = + (0.5d0*(1.-phi_prec(i  ,j  )))**2.0d0 &
-               + (0.5d0*(1.-phi_prec(i+1,j  )))**2.0d0 &
-               + (0.5d0*(1.-phi_prec(i  ,j+1)))**2.0d0 &
-               + (0.5d0*(1.-phi_prec(i-1,j  )))**2.0d0 &
-               + (0.5d0*(1.-phi_prec(i  ,j-1)))**2.0d0 &
-               + (0.5d0*(1.-phi_prec(i+1,j+1)))**2.0d0 &
-               + (0.5d0*(1.-phi_prec(i-1,j+1)))**2.0d0 &
-               + (0.5d0*(1.-phi_prec(i-1,j-1)))**2.0d0 &
-               + (0.5d0*(1.-phi_prec(i+1,j-1)))**2.0d0  
+              + (0.5d0*(1.-phi_prec(i+1,j  )))**2.0d0 &
+              + (0.5d0*(1.-phi_prec(i  ,j+1)))**2.0d0 &
+              + (0.5d0*(1.-phi_prec(i-1,j  )))**2.0d0 &
+              + (0.5d0*(1.-phi_prec(i  ,j-1)))**2.0d0 &
+              + (0.5d0*(1.-phi_prec(i+1,j+1)))**2.0d0 &
+              + (0.5d0*(1.-phi_prec(i-1,j+1)))**2.0d0 &
+              + (0.5d0*(1.-phi_prec(i-1,j-1)))**2.0d0 &
+              + (0.5d0*(1.-phi_prec(i+1,j-1)))**2.0d0  
 
-      k_plus  = (k_plus  / 8.0d0) * react_plus
-      k_minus = (k_minus / 8.0d0) * react_minus
+      k_plus = (k_plus  / 8.0d0) * react_plus
+      k_minus = (k_minus/ 8.0d0) * react_minus
 
     phi(i,j)       = phi_prec(i,j)  + (  & 
-                     +  f_plus * k_plus  * (1. - phi_prec(i,j))  &
-                     -  f_minus* k_minus * (1. + phi_prec(i,j)) )
+                     +  f_plus * k_plus  * (1.0d0 - phi_prec(i,j))  &
+                     -  f_minus* k_minus * (1.0d0 + phi_prec(i,j)) )
 
    enddo
  enddo
-!GA1  !$OMP END PARALLEL 
 
 ! write(*,*) 'f_plus=',f_plus,'f_minus=',f_minus
 

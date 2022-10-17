@@ -26,9 +26,10 @@
       write (523, '(A)') 'SCALARS DENSITY float 1'
       write (523, '(A)') 'LOOKUP_TABLE default'
 !
+!GA     !$omp target exit data map(from:rho)
      do l = 0, Ny+1
          do i = 0, Nx+1
-            write (523,*) rho (i, l)
+            write (523,*) rho(i, l)
          end do
      enddo
 
@@ -36,9 +37,10 @@
       write (523, '(A)') 'SCALARS Temperature float 1'
       write (523, '(A)') 'LOOKUP_TABLE default'
 !
+!GA     !$omp target exit data map(from:T)
      do l = 0, Ny+1
          do i = 0, Nx+1
-            write (523,*) T (i, l)
+            write (523,*) T(i, l)
          end do
      enddo
 !!!
@@ -46,6 +48,7 @@
       write (523, '(A)') 'SCALARS Phase_Field float 1'
       write (523, '(A)') 'LOOKUP_TABLE default'
 
+!GA     !$omp target exit data map(from:phi)
      do l = 0, Ny+1
          do i = 0, Nx+1
             write (523,*) phi(i, l)
@@ -55,6 +58,7 @@
 
       write (523, '(A)') 'VECTORS VELOCITY float'
 !
+!GA     !$omp target exit data map(from:u,v)
      do l = 0, Ny+1
          do i = 0, Nx+1
             write (523,*) u(i, l), v(i, l), 0.0d0

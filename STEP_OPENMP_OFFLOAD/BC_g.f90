@@ -4,17 +4,7 @@
 
  !======================================== WEST
 
-!GA !$OMP PARALLEL DEFAULT(NONE)  &
-!GA !$OMP PRIVATE(i,j)            &
-!GA !$OMP PRIVATE(uu,vv,uv,upv,umv)  &
-!GA !$OMP SHARED(Nx,Ny,Tin)          &
-!GA !$OMP SHARED(w_eq1,w_eq2,w_eq3,w_eq4)     &
-!GA !$OMP SHARED(w_eq5,w_eq6,w_eq7,w_eq8)     &
-!GA !$OMP SHARED(g0,g1,g2,g3,g4)  &
-!GA !$OMP SHARED(g5,g6,g7,g8)  &
-!GA !$OMP SHARED(u,v,T,phi)
-!GA !$OMP DO
-!$OMP target teams distribute parallel do 
+ !$OMP target teams distribute parallel do
  do j = 1,Ny
     uu = u(0,j)*u(0,j)
     vv = v(0,j)*v(0,j)
@@ -29,8 +19,7 @@
 
  !======================================== EAST
 
-!GA !$OMP DO
-!$OMP target teams distribute parallel do 
+ !$OMP target teams distribute parallel do
  do j = 1,Ny
     uu = u(Nx+1,j)*u(Nx+1,j)
     vv = v(Nx+1,j)*v(Nx+1,j)
@@ -47,8 +36,7 @@
 
 
 ! Zero-gradient for the Temperature -> no thermal flux (<->adiabatic?!?!?)
-!GA !$OMP DO
-!$OMP target teams distribute parallel do 
+ !$OMP target teams distribute parallel do
   do i=0,Nx+1     
      g0(i,Ny+1) = g0(i ,Ny)
      g1(i,Ny+1) = g1(i ,Ny)
@@ -66,8 +54,7 @@
  !======================================== SOUTH
 
 ! Zero-gradient for the Temperature -> no thermal flux (<->adiabatic?!?!?)
-!GA !$OMP DO
-!$OMP target teams distribute parallel do 
+ !$OMP target teams distribute parallel do
   do i=0,Nx+1     
      g0(i,0) = g0(i ,1)
      g1(i,0) = g1(i ,1)
@@ -81,7 +68,6 @@
      T(i,0)   = T(i,1)
      phi(i,0) = phi(i,1)
   enddo
-!GA !$OMP END PARALLEL
 
 #ifdef DEBUG
         write(6,*) "DEBUG: Completed subroutine BC_g"

@@ -33,11 +33,10 @@ module shared
  real(kind=mykind), allocatable   :: gradTwall(:), gradTwall2(:)
  real(kind=mykind), allocatable   :: x(:), y(:)
 ! 2 indexes matrices 
- real(kind=mykind), allocatable   :: phi(:,:),phi_prec(:,:),react_tot(:,:)
+ real(kind=mykind), allocatable   :: phi(:,:),phi_prec(:,:)
  real(kind=mykind), allocatable   :: T(:,:), T_prec(:,:), T2(:,:)
  real(kind=mykind), allocatable   :: u(:,:), v(:,:), rho(:,:)
  real(kind=mykind), allocatable   :: u2(:,:), v2(:,:), rho2(:,:)
- real(kind=mykind), allocatable   :: force_x(:,:), force_y(:,:)
  real(kind=mykind), allocatable   :: flag(:,:)
 ! f populations 
  real(kind=mykind), allocatable   :: f0(:,:)

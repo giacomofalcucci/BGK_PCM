@@ -4,21 +4,8 @@
 
  !======================================== WEST
 
-!GA !$OMP PARALLEL DEFAULT(NONE)  &
-!GA !$OMP PRIVATE(i,j)            &
-!GA !$OMP PRIVATE(uu,vv,uv,upv,umv)  &
-!GA !$OMP PRIVATE(u0,v0,rho0)  &
-!GA !$OMP SHARED(Nx,Ny)          &
-!GA !$OMP SHARED(westBC_st,eastBC_st)          &
-!GA !$OMP SHARED(northBC_st,southBC_st)          &
-!GA !$OMP SHARED(w_eq1,w_eq2,w_eq3,w_eq4)     &
-!GA !$OMP SHARED(w_eq5,w_eq6,w_eq7,w_eq8)     &
-!GA !$OMP SHARED(f0,f1,f2,f3,f4)  &
-!GA !$OMP SHARED(f5,f6,f7,f8)  &
-!GA !$OMP SHARED(u,v,phi,rho,rho1)
  if (westBC_st .eq. 0) then
-!GA     !$OMP DO
-!$OMP target teams distribute parallel do
+          !$OMP target teams distribute parallel do
     do j = 0,Ny+1
          f0(0,j) = f0(Nx,j)
          f1(0,j) = f1(Nx,j)
@@ -37,8 +24,7 @@
     uv = 1.5d0*(uu+vv)
     upv = u0+v0
     umv = u0-v0
-!GA     !$OMP DO
-!$OMP target teams distribute parallel do
+     !$OMP target teams distribute parallel do 
     do j = 1,Ny
        f1(0,j) = w_eq1*rho(1,j)*(1.d0+3.d0*u0+4.5d0*uu-uv)
        f5(0,j) = w_eq5*rho(1,j)*(1.d0+3.d0*upv+4.5d0*upv*upv-uv)
@@ -49,8 +35,7 @@
     end do
  elseif (westBC_st .eq. 2) then 
     ! fixed parabolic velocity, pressure gradient = 0
-!GA    !$OMP DO
-!$OMP target teams distribute parallel do
+     !$OMP target teams distribute parallel do 
     do j = 0,Ny+1
        uu = u(0,j)*u(0,j)
        vv = v0*v0
@@ -63,8 +48,7 @@
     end do
  elseif (westBC_st .eq. 3) then
     ! fixed constant pressure, velocity gradient = 0
-!GA    !$OMP DO
-!$OMP target teams distribute parallel do
+     !$OMP target teams distribute parallel do 
     do j = 0,Ny+1
        uu = u(1,j)*u(1,j)
        vv = v(1,j)*v(1,j)
@@ -80,8 +64,7 @@
     end do
  elseif (westBC_st .eq. 4) then
     ! bounceback
-!GA    !$OMP DO
-!$OMP target teams distribute parallel do
+     !$OMP target teams distribute parallel do 
     do j = 1,Ny
        f1(0,j  ) = f3(1,j)
        f8(0,j  ) = f6(1,j-1)
@@ -93,8 +76,7 @@
 
  if     (eastBC_st .eq. 0) then
     ! periodic
-!GA    !$OMP DO
-!$OMP target teams distribute parallel do
+     !$OMP target teams distribute parallel do 
     do j = 0,Ny+1
        f0(Nx+1,j) = f0(1,j)
        f1(Nx+1,j) = f1(1,j)
@@ -108,8 +90,7 @@
     end do
  elseif (eastBC_st .eq. 3) then
     ! fixed constant pressure, velocity gradient = 0
-!GA    !$OMP DO
-!$OMP target teams distribute parallel do
+     !$OMP target teams distribute parallel do 
     do j = 1,Ny
        uu = u(Nx,j)*u(Nx,j)
        vv = v(Nx,j)*v(Nx,j)
@@ -125,8 +106,7 @@
     end do
  elseif (eastBC_st .eq. 4) then
     ! bounceback
-!GA    !$OMP DO
-!$OMP target teams distribute parallel do
+     !$OMP target teams distribute parallel do 
     do j = 1,Ny
        f3(Nx+1,j  ) = f1(Nx,j)
        f6(Nx+1,j  ) = f8(Nx,j+1)
@@ -138,8 +118,7 @@
 
  if     (northBC_st .eq. 0) then
     ! periodic
-!GA    !$OMP DO
-!$OMP target teams distribute parallel do
+     !$OMP target teams distribute parallel do 
     do i = 0,Nx+1
        f0(i,Ny+1) = f0(i,1)
        f1(i,Ny+1) = f1(i,1)
@@ -153,8 +132,7 @@
     end do
  elseif (northBC_st .eq. 4) then
     ! bounceback
-!GA    !$OMP DO
-!$OMP target teams distribute parallel do
+     !$OMP target teams distribute parallel do 
     do i = 1,Nx
        f4(i,Ny+1) = f2(i,Ny)
        f7(i,Ny+1) = f5(i-1,Ny)
@@ -168,8 +146,7 @@
 
 elseif (northBC_st .eq. 5) then
     ! symmetric
-!GA    !$OMP DO
-!$OMP target teams distribute parallel do
+     !$OMP target teams distribute parallel do 
     do i = 0,Nx+1
        f4(i,Ny+1) = f2(i,Ny-1)
        f7(i,Ny+1) = f6(i,Ny-1)
@@ -177,8 +154,7 @@ elseif (northBC_st .eq. 5) then
     end do
  elseif (northBC_st .eq. 6) then
     ! open-boundary
-!GA    !$OMP DO
-!$OMP target teams distribute parallel do
+     !$OMP target teams distribute parallel do 
     do i = 0,Nx+1
        f4(i,Ny+1) = f4(i,Ny)
        f7(i,Ny+1) = f7(i,Ny)
@@ -191,8 +167,7 @@ elseif (northBC_st .eq. 5) then
     uv = 1.5d0*(uu+vv)
     upv = u0+v0
     umv = u0-v0
-!GA    !$OMP DO
-!$OMP target teams distribute parallel do
+     !$OMP target teams distribute parallel do 
     do i = 0,Nx+1
        f4(i,Ny+1) = w_eq4*rho(i,Ny)*(1.d0-3.d0*v0+4.5d0*vv-uv)
        f7(i,Ny+1) = w_eq7*rho(i,Ny)*(1.d0-3.d0*upv+4.5d0*upv*upv-uv)
@@ -204,8 +179,7 @@ elseif (northBC_st .eq. 5) then
 
  if     (southBC_st .eq. 0) then
     ! periodic
-!GA    !$OMP DO
-!$OMP target teams distribute parallel do
+     !$OMP target teams distribute parallel do 
     do i = 0,Nx+1
        f0(i,0) = f0(i,Ny)
        f1(i,0) = f1(i,Ny)
@@ -219,8 +193,7 @@ elseif (northBC_st .eq. 5) then
     end do
  elseif (southBC_st .eq. 4) then
     ! bounceback
-!GA    !$OMP DO
-!$OMP target teams distribute parallel do
+     !$OMP target teams distribute parallel do 
     do i = 1,Nx
        f2(i,0) = f4(i  ,1)
        f5(i,0) = f7(i+1,1)
@@ -233,15 +206,13 @@ elseif (northBC_st .eq. 5) then
       f5(0,0)  = f7(1,1)
  elseif (southBC_st .eq. 6) then
     ! open-boundary
-!GA    !$OMP DO
-!$OMP target teams distribute parallel do
+     !$OMP target teams distribute parallel do 
     do i = 0,Nx+1
        f2(i,0) = f2(i,1)
        f5(i,0) = f5(i,1)
        f6(i,0) = f6(i,1)
     end do
  end if
-!GA !$OMP END PARALLEL
 
 #ifdef DEBUG
         write(6,*) "DEBUG: Completed subroutine BC_f"

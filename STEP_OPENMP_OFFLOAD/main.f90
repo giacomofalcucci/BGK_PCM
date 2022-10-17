@@ -69,33 +69,40 @@
  write(6,1007) mem_start
  call SYSTEM_CLOCK(icountL0, icount_rate, icount_max)
  icountT0=icountL0
+
+!$omp target data map(tofrom:fp0,fp1,fp2,fp3,fp4,fp5,fp6,fp7,fp8, &
+!$omp&                       gp0,gp1,gp2,gp3,gp4,gp5,gp6,gp7,gp8, & 
+!$omp&                       f0,f1,f2,f3,f4,f5,f6,f7,f8,          &
+!$omp&                       g0,g1,g2,g3,g4,g5,g6,g7,g8,          & 
+!$omp&                       rho,u,v,T,rho2,u2,v2,T2,             &        
+!$omp&                       phi,phi_prec)
+
+
+
  do it = it0,iter
 
 #ifdef DEBUG
     write(6,*) "DEBUG: starting iteration ",it
 #endif
 
-!
-!$omp target enter data map(to:T(:,:),v(:,:),u(:,:),rho(:,:),T2(:,:),v2(:,:),u2(:,:),rho2(:,:),fp0(:,:),fp1(:,:),fp2(:,:),fp3(:,:),fp4(:,:),fp5(:,:),fp6(:,:),fp7(:,:),fp8(:,:),gp0(:,:),gp1(:,:),gp2(:,:),gp3(:,:),gp4(:,:),gp5(:,:),gp6(:,:),gp7(:,:),gp8(:,:),f0(:,:),f1(:,:),f2(:,:),f3(:,:),f4(:,:),f5(:,:),f6(:,:),f7(:,:),f8(:,:),g0(:,:),g1(:,:),g2(:,:),g3(:,:),g4(:,:),g5(:,:),g6(:,:),g7(:,:),g8(:,:), force_x(:,:),force_y(:,:),phi(:,:),phi_prec(:,:))
+
     call BC_f
     call BC_g
     call streaming
     call momentsPre
+!
     call phase_field
+!
     call forces
     call collision
     call moments
-    call media
-!
-!$omp target exit data map(from:T(:,:),v(:,:),u(:,:),rho(:,:),T2(:,:),v2(:,:),u2(:,:),rho2(:,:),fp0(:,:),fp1(:,:),fp2(:,:),fp3(:,:),fp4(:,:),fp5(:,:),fp6(:,:),fp7(:,:),fp8(:,:),gp0(:,:),gp1(:,:),gp2(:,:),gp3(:,:),gp4(:,:),gp5(:,:),gp6(:,:),gp7(:,:),gp8(:,:),f0(:,:),f1(:,:),f2(:,:),f3(:,:),f4(:,:),f5(:,:),f6(:,:),f7(:,:),f8(:,:),g0(:,:),g1(:,:),g2(:,:),g3(:,:),g4(:,:),g5(:,:),g6(:,:),g7(:,:),g8(:,:), force_x(:,:),force_y(:,:),phi(:,:),phi_prec(:,:))
-
 
     if(mod(it,1000).eq.0) then
       call diag    
       call probe
       call prof_x
       call prof_y
-      call mass_check
+      call field_check
 
       open(unit=150,file='log.dat',position='append')
       write(150,"(I8,A,F10.4)") it,' ',mass
@@ -108,8 +115,11 @@
  
     if (it == itOut .or. it == iter) then
 
+
 !      vtk dump
-       call out2d
+!     !$omp target exit data map(from:phi,u,v,T,rho)
+!       call out2d
+
 !
 !GA      write(6,1010) it, mass 
 !GA      write(6,1011) Nu(samplex), Nu2(samplex), Nu3(samplex)
@@ -141,6 +151,9 @@
     endif
 
  end do
+!$omp end target data 
+
+ call out2d
 
  call SYSTEM_CLOCK(icountT1, icount_rate, icount_max)
  time_inn_loop = real(icountT1-icountT0)/(icount_rate)

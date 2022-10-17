@@ -23,6 +23,12 @@ CC=nvc
 COPT = -O3 -Minfo=all
 endif
 
+ifdef IBM
+FC=xlf90_r  -qpreprocess -qsmp=omp
+CC=xlc 
+COPT = -O4
+endif
+
 
 OBJS = \
 BC_f.o \
@@ -41,8 +47,7 @@ prof_y.o \
 setup.o \
 initialization.o \
 out2d.o \
-mass_check.o \
-media.o \
+field_check.o \
 diag.o \
 get_mem.o \
 main.o \

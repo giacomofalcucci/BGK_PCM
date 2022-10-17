@@ -12,35 +12,7 @@
  real(kind=mykind)   ::  Txx,Tyy,Txy,gneq
 
  
-!GA1 !$OMP PARALLEL DEFAULT(NONE)  &
-!GA1 !$OMP PRIVATE(i,j)  &
-!GA1 !$OMP PRIVATE(uu,vv,uv,upv,umv)  &
-!GA1 !$OMP PRIVATE(pxx,pyy,pxy)  &
-!GA1 !$OMP PRIVATE(Txx,Tyy,Txy)  &
-!GA1 !$OMP PRIVATE(feq00,feq01,feq02,feq03,feq04)  &
-!GA1 !$OMP PRIVATE(feq05,feq06,feq07,feq08     )  &
-!GA1 !$OMP PRIVATE(ft0,ft1,ft2,ft3,ft4     )  &
-!GA1 !$OMP PRIVATE(ft5,ft6,ft7,ft8         )  &
-!GA1 !$OMP PRIVATE(geq00,geq01,geq02,geq03,geq04)  &
-!GA1 !$OMP PRIVATE(geq05,geq06,geq07,geq08     )  &
-!GA1 !$OMP PRIVATE(gt0,gt1,gt2,gt3,gt4     )  &
-!GA1 !$OMP PRIVATE(gt5,gt6,gt7,gt8         )  &
-!GA1 !$OMP SHARED(Nx,Ny)   &
-!GA1 !$OMP SHARED(cs2)   &
-!GA1 !$OMP SHARED(u,v,rho,T)   &
-!GA1 !$OMP SHARED(fp0,fp1,fp2,fp3,fp4)  &
-!GA1 !$OMP SHARED(fp5,fp6,fp7,fp8    )  &
-!GA1 !$OMP SHARED(f0,f1,f2,f3,f4)  &
-!GA1 !$OMP SHARED(f5,f6,f7,f8    )  &
-!GA1 !$OMP SHARED(gp0,gp1,gp2,gp3,gp4)  &
-!GA1 !$OMP SHARED(gp5,gp6,gp7,gp8    )  &
-!GA1 !$OMP SHARED(w_eq0,w_eq1,w_eq2,w_eq3,w_eq4)  &
-!GA1 !$OMP SHARED(w_eq5,w_eq6,w_eq7,w_eq8    )  &
-!GA1 !$OMP SHARED(g0,g1,g2,g3,g4)  &
-!GA1 !$OMP SHARED(g5,g6,g7,g8    )         &
-!GA1 !$OMP SHARED(omega_f ,omega_g  )
-!GA1 !$OMP DO
-!$OMP target teams distribute parallel do collapse(2) 
+ !$OMP target teams distribute parallel do simd collapse(2)
  do j = 1,Ny
     do i = 1,Nx
 
@@ -180,7 +152,6 @@
           g8(i,j) = gt8-omega_g*(gt8-geq08)
     end do
  end do
-!GA1 !$OMP END PARALLEL
 
 
 #ifdef DEBUG
