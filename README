@@ -10,6 +10,7 @@ STEP_3: some inter-subroutine optimization
 STEP_7: final (?) optimized serial version
 STEP_DO_CONCURRENT: Do conocurrent version  (CPU/GPU)
 STEP_OPENACC: OpenACC version (GPU)
-STEP_OPENMP: OpenMP version (only GPU)
+STEP_OPENMP: OpenMP version (only CPU)
+STEP_OPENMP_OFFLOAD: OpenMP version with offload (only GPU)
 UTIL: scripts and input file used for validation/benchmarking
 
