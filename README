@@ -8,6 +8,8 @@ STEP_1: more cleaned version, no optimization performed, inserted memory measure
 STEP_2: some subroutine optimization
 STEP_3: some inter-subroutine optimization
 STEP_7: final (?) optimized serial version
-STEP_DO_CONCURRENT: Do conocurrent version
-
+STEP_DO_CONCURRENT: Do conocurrent version  (CPU/GPU)
+STEP_OPENACC: OpenACC version (GPU)
+STEP_OPENMP: OpenMP version (only GPU)
+UTIL: scripts and input file used for validation/benchmarking
 
