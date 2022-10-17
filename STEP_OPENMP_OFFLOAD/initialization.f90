@@ -27,11 +27,11 @@ enddo
 
 
  write(*,*) '****************************************************'
-! #ifdef SINGLEPRECISION
-! write(*,*) 'Single precision used                               '
-! #else
+#ifdef SINGLEPRECISION
+ write(*,*) 'Single precision used                               '
+#else
  write(*,*) 'Double precision used                               '
-! #endif
+#endif
  write(*,*) '****************************************************'
  write(*,*) 'Nx   = ' , Nx
  write(*,*) 'Ny   = ' , Ny

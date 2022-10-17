@@ -24,9 +24,9 @@ COPT = -O3 -Minfo=all
 endif
 
 ifdef IBM
-FC=xlf90_r  -qpreprocess -qsmp=omp
+FC=xlf90_r  -qpreprocess
 CC=xlc 
-COPT = -O4
+COPT = -O3
 endif
 
 

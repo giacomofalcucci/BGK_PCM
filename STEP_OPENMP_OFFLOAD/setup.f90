@@ -117,6 +117,7 @@
  allocate(Nu2(1:samplex),Tavg2(1:samplex),gradTwall2(1:samplex))
  allocate(Nu3(1:samplex))
 
+
 #ifdef DEBUG
         write(6,*) "DEBUG: Completed subroutine setup"
 #endif

@@ -3,8 +3,9 @@
 * to parallelize using OpenMP (with offload):
 
 
-nvidia compiler: make NV=1 FIX="-mp=gpu "
-gfortran compiler: make FIX="-fopenmp "
-intel compiler: make INTEL=1 FIX="-openmp "
+
+nvidia compiler: make NV=1 FIX="-mp=gpu "   (m100/v100/DGX)
+xl compiler: make IBM=1 FIX="-qsmp -qoffload -qtgtarch=sm_70" (m100)
+
 
 For single precision add " -DSINGLEPRECISION "

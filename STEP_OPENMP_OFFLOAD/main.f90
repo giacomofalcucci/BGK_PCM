@@ -21,7 +21,7 @@
  real(kind=dp)    :: mem_start, mem_stop
 
  write(6,*) "================================"
- write(6,*) " OpenMP Version                 "
+ write(6,*) " OpenMP-Offload Version                 "
 #ifdef _OPENMP
 !$omp parallel
            nthreads = OMP_GET_NUM_THREADS()
