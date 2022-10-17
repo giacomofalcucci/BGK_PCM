@@ -77,8 +77,6 @@
 !$omp&                       rho,u,v,T,rho2,u2,v2,T2,             &        
 !$omp&                       phi,phi_prec)
 
-
-
  do it = it0,iter
 
 #ifdef DEBUG
@@ -97,7 +95,8 @@
     call collision
     call moments
 
-    if(mod(it,1000).eq.0) then
+    if(mod(it,5000).eq.0) then
+      !$omp target update from(u,v,rho,phi,T)
       call diag    
       call probe
       call prof_x
@@ -118,7 +117,7 @@
 
 !      vtk dump
 !     !$omp target exit data map(from:phi,u,v,T,rho)
-!       call out2d
+       call out2d
 
 !
 !GA      write(6,1010) it, mass 
