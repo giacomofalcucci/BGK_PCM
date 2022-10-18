@@ -27,8 +27,15 @@ enddo
 
 
  write(*,*) '****************************************************'
+#ifdef SINGLEPRECISION
+ write(*,*) 'Single precision used                               '
+#else
+ write(*,*) 'Double precision used                               '
+#endif
+ write(*,*) '****************************************************'
  write(*,*) 'Nx   = ' , Nx
  write(*,*) 'Ny   = ' , Ny
+ write(*,*) 'iter = ' , iter
  write(*,*) 'alpha= ' , alpha
  write(*,*) 'kvisc= ' , kvisc
  write(*,*) 'u0   = ' , u0
