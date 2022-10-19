@@ -33,7 +33,6 @@
 
  allocate(u(0:Nx+1,0:Ny+1),v(0:Nx+1,0:Ny+1),rho(0:Nx+1,0:Ny+1))
  allocate(u2(0:Nx+1,0:Ny+1),v2(0:Nx+1,0:Ny+1),rho2(0:Nx+1,0:Ny+1))
- allocate(flag(0:Nx+1,0:Ny+1))
  allocate(x(0:Nx+1),y(0:Ny+1))
  ! f pop
  allocate(f0(0:Nx+1,0:Ny+1))
@@ -73,10 +72,9 @@
  allocate(gp6(0:Nx+1,0:Ny+1))
  allocate(gp7(0:Nx+1,0:Ny+1))
  allocate(gp8(0:Nx+1,0:Ny+1))
- allocate(T(0:Nx+1,0:Ny+1),T_prec(0:Nx+1,0:Ny+1))
- allocate(T2(0:Nx+1,0:Ny+1))
+ allocate(  T(0:Nx+1,0:Ny+1))
+ allocate(  T2(0:Nx+1,0:Ny+1))
  allocate(phi(0:Nx+1,0:Ny+1),phi_prec(0:Nx+1,0:Ny+1))
- allocate(react_tot(1:Nx,1:Ny))
 
  w_eq0 = 4.d0/9.d0
  w_eq1 = 1.d0/9.d0
@@ -100,8 +98,6 @@
  cs = sqrt(1.d0/3.d0)
  cs2 = 1.d0/3.d0
  cs4 = 1.d0/9.d0
-
- flag = 0
 
  omega_f = 1.d0/tau_f
  omega_g = 1.d0/tau_g
