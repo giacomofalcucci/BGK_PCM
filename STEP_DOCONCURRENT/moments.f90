@@ -4,8 +4,7 @@ subroutine moments
 
  real(kind=mykind)  :: temp_T, temp_u, temp_v 
 
-
- do concurrent(j = 1:Ny,i = 1:Nx)
+do concurrent(j = 1:Ny,i = 1:Nx)
 
           rho(i,j) = f0(i,j)+f1(i,j)+f2(i,j)+f3(i,j)+f4(i,j) & 
                     +f5(i,j)+f6(i,j)+f7(i,j)+f8(i,j)
@@ -22,10 +21,9 @@ subroutine moments
    
           u(i,j)     = (temp_u+u2(i,j))*0.50d0
           v(i,j)     = (temp_v+v2(i,j))*0.50d0
- end do
+end do
 
 #ifdef DEBUG_GA
-!k = 0    ! Col OMP DO deve stare FUORI, con la SECTION DENTRO....!!!!! :O
 k = 0
  do i = 1,samplex
     gradTwall(i) = (T(k,2)-T(k,0))/2.d0 
@@ -62,7 +60,6 @@ temp_aver = temp_aver/(Nx*Ny)
 write(*,*) 'DEBUG: T(nx/2,ny/2) =', T(nx/2,ny/2)
 write(*,*) 'DEBUG: temp_aver =', temp_aver
 #endif
-
 
 
 #ifdef DEBUG
