@@ -29,7 +29,6 @@ subroutine momentspre
 !write(*,*) 'CHECK1 : T(nx/2,ny/2) =', T(nx/2,ny/2)
 
 #ifdef DEBUG_GA
-!k = 0    ! Col OMP DO deve stare FUORI, con la SECTION DENTRO....!!!!! :O
 k = 0
  do i = 1,samplex
     gradTwall(i) = (T(k,2)-T(k,0))/2.d0 
