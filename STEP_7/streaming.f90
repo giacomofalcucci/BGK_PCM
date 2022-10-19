@@ -26,9 +26,6 @@
     end do
  end do
 
-!$OMP END SECTIONS
-!$OMP END PARALLEL
-
 #ifdef DEBUG
         write(6,*) "DEBUG: Completed subroutine streaming"
 #endif

@@ -150,8 +150,6 @@
           g8(i,j) = gt8-omega_g*(gt8-geq08)
     end do
  end do
-!$OMP END DO
-!$OMP END PARALLEL
 
 #ifdef DEBUG
         write(6,*) "DEBUG: Completed subroutine collision"

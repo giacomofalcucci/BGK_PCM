@@ -18,12 +18,6 @@ f_minus = 0.5d0
 
 phi_prec(:,:)    = phi(:,:)
 
-!$OMP PARALLEL DEFAULT(shared) &
-!$OMP PRIVATE(i,j,k_plus,k_minus)
-!!!!$OMP PRIVATE(i,j,react_plus,react_minus,k_plus,k_minus,react_tot,phi)
-!!!!$OMP SECTIONS
-!!!!$OMP SECTION
-!$OMP DO
  do j = 1,Ny
   do i = 1,Nx
 
@@ -59,9 +53,6 @@ phi_prec(:,:)    = phi(:,:)
 
    enddo
  enddo
-!OMP END DO
-!!!!!!!!!!$OMP END SECTIONS
-!$OMP END PARALLEL
 
 ! write(*,*) 'f_plus=',f_plus,'f_minus=',f_minus
 

@@ -2,10 +2,6 @@ subroutine momentspre
 
  use shared
 
-!$OMP PARALLEL DEFAULT(shared) &
-!$OMP PRIVATE(i,j,k) 
-!$OMP SECTIONS
-!$OMP SECTION
  do j = 1,Ny
     do i = 1,Nx
 
