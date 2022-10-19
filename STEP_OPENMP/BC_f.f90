@@ -36,7 +36,6 @@
     uv = 1.5d0*(uu+vv)
     upv = u0+v0
     umv = u0-v0
-    !$acc kernels
     !$OMP DO
     do j = 1,Ny
        f1(0,j) = w_eq1*rho(1,j)*(1.d0+3.d0*u0+4.5d0*uu-uv)
