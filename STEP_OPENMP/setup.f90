@@ -33,7 +33,6 @@
 
  allocate(u(0:Nx+1,0:Ny+1),v(0:Nx+1,0:Ny+1),rho(0:Nx+1,0:Ny+1))
  allocate(u2(0:Nx+1,0:Ny+1),v2(0:Nx+1,0:Ny+1),rho2(0:Nx+1,0:Ny+1))
- allocate(flag(0:Nx+1,0:Ny+1))
  allocate(x(0:Nx+1),y(0:Ny+1))
  ! f pop
  allocate(f0(0:Nx+1,0:Ny+1))
@@ -99,8 +98,6 @@
  cs = sqrt(1.d0/3.d0)
  cs2 = 1.d0/3.d0
  cs4 = 1.d0/9.d0
-
- flag = 0
 
  omega_f = 1.d0/tau_f
  omega_g = 1.d0/tau_g

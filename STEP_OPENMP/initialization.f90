@@ -2,7 +2,9 @@
 
  use shared
 
- interf = int(Nx/40)
+! interf = int(Nx/40)
+! interf = int(Nx-10)
+ interf = int(Nx-1)
 
  !rho = rho0
 ! T = T0
@@ -33,13 +35,14 @@ enddo
  write(*,*) 'Double precision used                               '
 #endif
  write(*,*) '****************************************************'
- write(*,*) 'Nx   = ' , Nx
- write(*,*) 'Ny   = ' , Ny
- write(*,*) 'iter = ' , iter
- write(*,*) 'alpha= ' , alpha
- write(*,*) 'kvisc= ' , kvisc
- write(*,*) 'u0   = ' , u0
- write(*,*) 'T0   = ' , T0
+ write(*,*) 'Nx      = ' , Nx
+ write(*,*) 'Ny      = ' , Ny
+ write(*,*) 'iter    = ' , iter
+ write(*,*) 'alpha   = ' , alpha
+ write(*,*) 'kvisc   = ' , kvisc
+ write(*,*) 'u0      = ' , u0
+ write(*,*) 'T0      = ' , T0
+ write(*,*) 'T_width = ' , T_width
  write(*,*) '****************************************************'
 
  if (u0 .ge. cs/3.d0) then

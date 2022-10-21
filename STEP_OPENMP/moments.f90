@@ -15,7 +15,7 @@ subroutine moments
 !$OMP SHARED(g0,g1,g2,g3,g4)  &
 !$OMP SHARED(g5,g6,g7,g8    )  &
 !$OMP SHARED(rho,u,v,T)        &
-!$OMP SHARED(rho,u2,v2,T2)
+!$OMP SHARED(rho2,u2,v2,T2)
 !$OMP DO
  do j = 1,Ny
     do i = 1,Nx
