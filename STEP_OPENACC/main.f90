@@ -87,7 +87,8 @@
     if (it == itOut .or. it == iter) then
 
 !      vtk dump
-       call out2d
+!       call out2d
+       call out2d_phi
 !
 !GA      write(6,1010) it, mass 
 !GA      write(6,1011) Nu(samplex), Nu2(samplex), Nu3(samplex)
