@@ -1,5 +1,5 @@
   iter                50000         ! tempo totale della simulazione
-  noutput                10       ! numero di output
+  noutput                2       ! numero di output
   dump                   0           ! restart [0 , 1] 
   Nx		       128          ! nodi x-direction
   Ny                   512          ! nodi y-direction
