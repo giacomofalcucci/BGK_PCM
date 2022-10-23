@@ -3,6 +3,6 @@ OPENMP (for CPU) version
 To parallelize using OpenMP :
 * nvidia compiler: make NV=1 FIX="-mp "
 * gfortran compiler: make FIX="-fopenmp "
-* intel compiler: make INTEL=1 FIX="-openmp "
+* intel compiler: make INTEL=1 FIX="-fopenmp "
 
 For single precision add " -DSINGLEPRECISION "
