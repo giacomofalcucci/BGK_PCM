@@ -2,9 +2,9 @@
 
  use shared
 
-! interf = int(Nx/40)
+ interf = int(Nx/40)
 ! interf = int(Nx-10)
- interf = int(Nx-1)
+! interf = int(Nx-1)
 
  !rho = rho0
 ! T = T0
