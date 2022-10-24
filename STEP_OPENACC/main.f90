@@ -89,6 +89,9 @@
 !      vtk dump
 !       call out2d
        call out2d_phi
+       call out2d_vel
+       call out2d_rho
+       call out2d_Temp
 !
 !GA      write(6,1010) it, mass 
 !GA      write(6,1011) Nu(samplex), Nu2(samplex), Nu3(samplex)

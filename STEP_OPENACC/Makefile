@@ -42,6 +42,9 @@ setup.o \
 initialization.o \
 out2d.o \
 out2d.phi.o \
+out2d.vel.o \
+out2d.rho.o \
+out2d.temp.o \
 field_check.o \
 mass_check.o \
 diag.o \
