@@ -32,7 +32,7 @@
  close(112)
 
  allocate(u(0:Nx+1,0:Ny+1),v(0:Nx+1,0:Ny+1),rho(0:Nx+1,0:Ny+1))
- allocate(u2(0:Nx+1,0:Ny+1),v2(0:Nx+1,0:Ny+1),rho2(0:Nx+1,0:Ny+1))
+ allocate(u2(0:Nx+1,0:Ny+1),v2(0:Nx+1,0:Ny+1))
  allocate(flag(0:Nx+1,0:Ny+1))
  allocate(x(0:Nx+1),y(0:Ny+1))
  ! f pop
