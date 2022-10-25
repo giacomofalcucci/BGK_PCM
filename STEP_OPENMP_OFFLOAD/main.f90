@@ -37,7 +37,7 @@
 
  call setup
 !
- isignal=500
+ isignal=100
 
 ! init section
  if (dump .eq. 0) then
@@ -56,7 +56,10 @@
  deltaOut = int(iter/noutput)
  if (it .eq. 0) then
     itOut = deltaOut
-    call out2d
+    call out2d_phi
+    call out2d_rho
+    call out2d_vel
+    call out2d_temp
  else
     itOut = it + deltaOut
  end if
@@ -74,7 +77,7 @@
 !$omp&                       gp0,gp1,gp2,gp3,gp4,gp5,gp6,gp7,gp8, & 
 !$omp&                       f0,f1,f2,f3,f4,f5,f6,f7,f8,          &
 !$omp&                       g0,g1,g2,g3,g4,g5,g6,g7,g8,          & 
-!$omp&                       rho,u,v,T,rho2,u2,v2,T2,             &        
+!$omp&                       rho,u,v,T,u2,v2,T2,             &        
 !$omp&                       phi,phi_prec)
 
  do it = it0,iter
@@ -95,7 +98,7 @@
     call collision
     call moments
 
-    if(mod(it,5000).eq.0) then
+    if(mod(it,1000).eq.0) then
       !$omp target update from(u,v,rho,phi,T)
       call diag    
       call probe
@@ -116,8 +119,11 @@
 
 
 !      vtk dump
-!     !$omp target exit data map(from:phi,u,v,T,rho)
-       call out2d
+!      !$omp target update from(u,v,rho,phi,T)
+       call out2d_phi
+       call out2d_rho
+       call out2d_vel
+       call out2d_temp
 
 !
 !GA      write(6,1010) it, mass 
@@ -152,7 +158,11 @@
  end do
 !$omp end target data 
 
- call out2d
+! check
+!       call out2d_phi
+!       call out2d_rho
+!       call out2d_vel
+!       call out2d_temp
 
  call SYSTEM_CLOCK(icountT1, icount_rate, icount_max)
  time_inn_loop = real(icountT1-icountT0)/(icount_rate)

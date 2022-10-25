@@ -16,7 +16,6 @@ subroutine momentspre
           u(i,j)    = irho*(fp1(i,j)-fp3(i,j)+fp5(i,j)-fp6(i,j)-fp7(i,j)+fp8(i,j))
           v(i,j)    = irho*(fp2(i,j)-fp4(i,j)+fp5(i,j)+fp6(i,j)-fp7(i,j)-fp8(i,j))
 !
-          rho2(i,j) = rho(i,j)
           T2(i,j)   = T(i,j)
           u2(i,j)   = u(i,j)
           v2(i,j)   = v(i,j)
