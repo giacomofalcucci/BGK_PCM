@@ -38,7 +38,11 @@
  deltaOut = int(iter/noutput)
  if (it .eq. 0) then
     itOut = deltaOut
-    call out2d
+!    call out2d
+    call out2d_phi
+    call out2d_vel
+    call out2d_rho
+    call out2d_Temp
  else
     itOut = it + deltaOut
  end if

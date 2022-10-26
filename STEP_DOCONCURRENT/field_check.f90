@@ -1,7 +1,6 @@
  subroutine field_check
 
  use shared
- implicit none
 
  real(kind=mykind)  :: mass_aver, phi_aver
 

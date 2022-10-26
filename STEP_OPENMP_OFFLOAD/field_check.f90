@@ -1,7 +1,6 @@
  subroutine field_check
 
  use shared
- implicit none
 
  real(kind=mykind)  :: mass_aver, phi_aver
 
@@ -27,7 +26,7 @@
 
 ! formats...
 1001    format("CHECK: Mass, Temp, Phi",3(e14.6,1x))
-1002    format(i8,3(e14.6,1x))
+1002    format(i8,1x,3(e16.8,1x))
 
 
 

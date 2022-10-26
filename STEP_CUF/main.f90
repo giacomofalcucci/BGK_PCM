@@ -37,7 +37,11 @@
  deltaOut = int(iter/noutput)
  if (it .eq. 0) then
     itOut = deltaOut
-    call out2d
+!    call out2d
+       call out2d_phi
+       call out2d_rho
+       call out2d_vel
+       call out2d_temp
  else
     itOut = it + deltaOut
  end if
@@ -181,7 +185,12 @@
     T = T_gpu
     phi = phi_gpu
 
-       call out2d
+!       call out2d
+       call out2d_phi
+       call out2d_rho
+       call out2d_vel
+       call out2d_temp
+
 !
 !GA      write(6,1010) it, mass 
 !GA      write(6,1011) Nu(samplex), Nu2(samplex), Nu3(samplex)
