@@ -16,6 +16,7 @@
  write(6,*) "================================"
  write(6,*) " DO CONCURRENT version         "
  write(6,*) "================================"
+ call system("git log | head -n 3 > git.commit.txt")
 
  call setup
 !

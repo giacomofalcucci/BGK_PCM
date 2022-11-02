@@ -5,6 +5,10 @@
  !======================================== WEST
 
  if     (westBC_st .eq. 0) then
+!         
+    write(6,*) "ERROR: BC still to  validate"
+    stop
+!    
     ! periodic
     do concurrent(j=0:Ny+1)
          f0(0,j) = f0(Nx,j)
@@ -17,7 +21,12 @@
          f7(0,j) = f7(Nx,j)
          f8(0,j) = f8(Nx,j)
     end do
+!    
  elseif (westBC_st .eq. 1) then
+!         
+    write(6,*) "ERROR: BC still to  validate"
+    stop
+!    
     ! fixed constant velocity, pressure gradient = 0
     uu = u0*u0
     vv = v0*v0
@@ -32,7 +41,12 @@
        v(0,j) = v0
        rho(0,j) = rho(1,j)
     end do
+!    
  elseif (westBC_st .eq. 2) then 
+!         
+    write(6,*) "ERROR: BC still to  validate"
+    stop
+!    
     ! fixed parabolic velocity, pressure gradient = 0
     do concurrent(j=0:Ny+1)
        uu = u(0,j)*u(0,j)
@@ -44,7 +58,12 @@
        f5(0,j) = w_eq5*rho(1,j)*(1.d0+3.d0*upv+4.5d0*upv*upv-uv)
        f8(0,j) = w_eq8*rho(1,j)*(1.d0+3.d0*umv+4.5d0*umv*umv-uv)
     end do
+!    
  elseif (westBC_st .eq. 3) then
+!         
+    write(6,*) "ERROR: BC still to  validate"
+    stop
+!    
     ! fixed constant pressure, velocity gradient = 0
     do concurrent(j=0:Ny+1)
        uu = u(1,j)*u(1,j)
@@ -59,18 +78,27 @@
        v(0,j) = v(1,j)
        rho(0,j) = rho1
     end do
+!    
  elseif (westBC_st .eq. 4) then
     ! bounceback
     do concurrent(j=1:Ny)
        f1(0,j  ) = f3(1,j)
        f8(0,j  ) = f6(1,j-1)
        f5(0,j  ) = f7(1,j+1)
+       rho(0,j) = rho(1,j)
+       u(0,j) = 0.d0
+       v(0,j) = 0.d0
     end do
+!
  end if
 
  !======================================== EAST
 
  if     (eastBC_st .eq. 0) then
+!         
+    write(6,*) "ERROR: BC still to  validate"
+    stop
+!    
     ! periodic
     do concurrent(j=0:Ny+1)
        f0(Nx+1,j) = f0(1,j)
@@ -83,7 +111,12 @@
        f7(Nx+1,j) = f7(1,j)
        f8(Nx+1,j) = f8(1,j)
     end do
+!    
  elseif (eastBC_st .eq. 3) then
+!         
+    write(6,*) "ERROR: BC still to  validate"
+    stop
+!    
     ! fixed constant pressure, velocity gradient = 0
     do concurrent(j=1:Ny)
        uu = u(Nx,j)*u(Nx,j)
@@ -98,18 +131,31 @@
        v(Nx+1,j) = v(Nx,j)
        rho(Nx+1,j) = rho0
     end do
+!    
  elseif (eastBC_st .eq. 4) then
     ! bounceback
     do concurrent(j=1:Ny)
        f3(Nx+1,j  ) = f1(Nx,j)
        f6(Nx+1,j  ) = f8(Nx,j+1)
        f7(Nx+1,j  ) = f5(Nx,j-1)
+       rho(Nx+1,j) = rho(Nx,j)
+       u(Nx+1,j) = 0.d0
+       v(Nx+1,j) = 0.d0
     end do
+!
+!   Corner fix
+    f6(Nx+1,0   ) = f8(Nx,1)
+    f7(Nx+1,Ny+1) = f5(Nx,Ny)
+!
  end if
 
  !======================================== NORTH
 
  if     (northBC_st .eq. 0) then
+!         
+    write(6,*) "ERROR: BC still to  validate"
+    stop
+!    
     ! periodic
     do concurrent(i=0:Nx+1)
        f0(i,Ny+1) = f0(i,1)
@@ -122,6 +168,7 @@
        f7(i,Ny+1) = f7(i,1)
        f8(i,Ny+1) = f8(i,1)
     end do
+!         
  elseif (northBC_st .eq. 4) then
     ! bounceback
     do concurrent(i=1:Nx)
@@ -133,9 +180,14 @@
        v(i,Ny+1) = 0.d0
     end do
 
-       f8(0,Ny+1) = f6(1,Ny) 
-
+!   Corner fix
+    f8(0,Ny+1) = f6(1,Ny) 
+!
 elseif (northBC_st .eq. 5) then
+!         
+    write(6,*) "ERROR: BC still to  validate"
+    stop
+!    
     ! symmetric
     do concurrent(i=0:Nx+1)
        f4(i,Ny+1) = f2(i,Ny-1)
@@ -143,6 +195,10 @@ elseif (northBC_st .eq. 5) then
        f8(i,Ny+1) = f5(i,Ny-1)
     end do
  elseif (northBC_st .eq. 6) then
+!         
+    write(6,*) "ERROR: BC still to  validate"
+    stop
+!    
     ! open-boundary
     do concurrent(i=0:Nx+1)
        f4(i,Ny+1) = f4(i,Ny)
@@ -150,6 +206,10 @@ elseif (northBC_st .eq. 5) then
        f8(i,Ny+1) = f8(i,Ny)
     end do
  elseif (northBC_st .eq. 1) then
+!         
+    write(6,*) "ERROR: BC still to  validate"
+    stop
+!    
     ! fixed constant velocity, pressure gradient = 0
     uu = u0*u0
     vv = v0*v0
@@ -166,6 +226,10 @@ elseif (northBC_st .eq. 5) then
  !======================================== SOUTH
 
  if     (southBC_st .eq. 0) then
+!         
+    write(6,*) "ERROR: BC still to  validate"
+    stop
+!    
     ! periodic
     do concurrent(i=0:Nx+1)
        f0(i,0) = f0(i,Ny)
@@ -178,7 +242,9 @@ elseif (northBC_st .eq. 5) then
        f7(i,0) = f7(i,Ny)
        f8(i,0) = f8(i,Ny)
     end do
+!         
  elseif (southBC_st .eq. 4) then
+!         
     ! bounceback
     do concurrent(i=1:Nx)
        f2(i,0) = f4(i  ,1)
@@ -189,8 +255,14 @@ elseif (northBC_st .eq. 5) then
        v(i,0) = 0.d0
     end do
 
-      f5(0,0)  = f7(1,1)
+!   Corner fix
+    f5(0,0)  = f7(1,1)
+!
  elseif (southBC_st .eq. 6) then
+!         
+    write(6,*) "ERROR: BC still to  validate"
+    stop
+!    
     ! open-boundary
     do concurrent(i=0:Nx+1)
        f2(i,0) = f2(i,1)
