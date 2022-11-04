@@ -12,8 +12,16 @@ module shared
  integer, parameter           :: n_th = 1
  integer, parameter           :: npop = 9
 ! 
-! real scalars 
+! real constant
+ real(kind=mykind), parameter     :: c05 = 0.5000000000000000000
+ real(kind=mykind), parameter     :: c10 = 1.0000000000000000000
+ real(kind=mykind), parameter     :: c15 = 1.5000000000000000000
+ real(kind=mykind), parameter     :: c20 = 2.0000000000000000000
+ real(kind=mykind), parameter     :: c30 = 3.0000000000000000000
+ real(kind=mykind), parameter     :: c45 = 4.5000000000000000000
  real(kind=mykind), parameter     :: pi = acos(-1.d0)
+! 
+! real scalars 
  real(kind=mykind)                :: kvisc, alpha, T0, Tin, rho0, rho1
  real(kind=mykind)                :: eps, T_in_sol
  real(kind=mykind)                :: w_eq0,w_eq1,w_eq2,w_eq3,w_eq4,w_eq5,w_eq6,w_eq7,w_eq8
