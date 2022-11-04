@@ -18,7 +18,11 @@
       write(524,'(A7,I10,A1,I10,A1,I10)')  'ORIGIN ',1,' ',1,' ',1
       write(524,'(A8,I10,A1,I10,A1,I10)') 'SPACING ',1,' ',1,' ',1
       write(524,'(A10,I10)')'POINT_DATA ',Nx*Ny
+#ifdef SINGLEPRECISION
+      write(524,'(A)')'SCALARS Temperature float'
+#else
       write(524,'(A)')'SCALARS Temperature double'
+#endif
       write(524,'(A)')'LOOKUP_TABLE default'
       close(524)
 

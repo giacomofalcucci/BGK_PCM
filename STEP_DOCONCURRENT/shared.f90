@@ -13,6 +13,7 @@ module shared
  integer, parameter           :: npop = 9
 ! 
 ! real constant
+ real(kind=mykind), parameter     :: c00 = 0.0000000000000000000
  real(kind=mykind), parameter     :: c05 = 0.5000000000000000000
  real(kind=mykind), parameter     :: c10 = 1.0000000000000000000
  real(kind=mykind), parameter     :: c15 = 1.5000000000000000000
