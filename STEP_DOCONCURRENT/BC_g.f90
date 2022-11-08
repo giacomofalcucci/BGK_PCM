@@ -4,17 +4,23 @@
 
  !======================================== WEST
 
-! do j = 1,Ny
- do concurrent(j=1:Ny)
+ do concurrent(j=0:Ny)
     uu = u(0,j)*u(0,j)
     vv = v(0,j)*v(0,j)
     uv = 1.5d0*(uu+vv)
     upv = u(0,j)+v(0,j)
     umv = u(0,j)-v(0,j)
-    g1(0,j) = w_eq1*Tin*(1.d0+3.d0*u(0,j)+4.5d0*uu-uv)
-    g5(0,j) = w_eq5*Tin*(1.d0+3.d0*upv+4.5d0*upv*upv-uv)
-    g8(0,j) = w_eq8*Tin*(1.d0+3.d0*umv+4.5d0*umv*umv-uv)
-    T(0,j) = Tin
+#ifdef FROMRIGHT
+    g1(0,j) = w_eq1*T(1,j)*(1.d0-3.d0*u(0,j)+4.5d0*uu-uv)
+    g5(0,j) = w_eq5*T(1,j)*(1.d0-3.d0*upv+4.5d0*upv*upv-uv)
+    g8(0,j) = w_eq8*T(1,j)*(1.d0-3.d0*umv+4.5d0*umv*umv-uv)
+     T(0,j) = T(1,j)
+#else
+    g1(0,j) = w_eq1*    Tin*(1.d0+3.d0*u(0,j)+4.5d0*uu-uv)
+    g5(0,j) = w_eq5*    Tin*(1.d0+3.d0*upv+4.5d0*upv*upv-uv)
+    g8(0,j) = w_eq8*    Tin*(1.d0+3.d0*umv+4.5d0*umv*umv-uv)
+     T(0,j) = Tin
+#endif
  end do
 
  !======================================== EAST
@@ -26,10 +32,17 @@
     uv = 1.5d0*(uu+vv)
     upv = u(Nx+1,j)+v(Nx+1,j)
     umv = u(Nx+1,j)-v(Nx+1,j)
+    #ifdef FROMRIGHT
+    g3(Nx+1,j) = w_eq3*    Tin*(1.d0-3.d0*u(Nx+1,j)+4.5d0*uu-uv)
+    g6(Nx+1,j) = w_eq6*    Tin*(1.d0-3.d0*umv+4.5d0*umv*umv-uv)
+    g7(Nx+1,j) = w_eq7*    Tin*(1.d0-3.d0*upv+4.5d0*upv*upv-uv)
+     T(Nx+1,j) = Tin
+    #else
     g3(Nx+1,j) = w_eq3*T(Nx,j)*(1.d0-3.d0*u(Nx+1,j)+4.5d0*uu-uv)
     g6(Nx+1,j) = w_eq6*T(Nx,j)*(1.d0-3.d0*umv+4.5d0*umv*umv-uv)
     g7(Nx+1,j) = w_eq7*T(Nx,j)*(1.d0-3.d0*upv+4.5d0*upv*upv-uv)
-    T(Nx+1,j) = T(Nx,j)
+     T(Nx+1,j) = T(Nx,j)
+    #endif
  end do
 
  !======================================== NORTH

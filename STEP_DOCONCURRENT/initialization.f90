@@ -13,20 +13,37 @@
  Mach = u0/cs
 
 do j=0,Ny+1
-!  do i=0,int(Nx/2)-1
+ #ifdef FROMRIGHT
+ do i =0, Nx-interf
+    T(i,j)   = T_in_sol
+    rho(i,j) = rho0
+ enddo
+ #else
  do i =0, interf
     T(i,j)   = T0
     rho(i,j) = rho1 
+ enddo
+ #endif
+ #ifdef FROMRIGHT
+ do i =Nx-interf+1, Nx+1
+    T(i,j)   = T0
+    rho(i,j) = rho1 
   enddo
-!  do i=int(Nx/2),Nx+1
+ #else
   do i=interf+1,Nx+1
     T(i,j)   = T_in_sol
     rho(i,j) = rho0
   enddo
+ #endif
 enddo
 
 
  write(*,*) '****************************************************'
+#ifdef FROMRIGHT
+ write(*,*) 'Heating from right (Est wall)                       '
+#else
+ write(*,*) 'Heating from left (West wall)                       '
+#endif
 #ifdef SINGLEPRECISION
  write(*,*) 'Single precision used                               '
 #else
@@ -80,7 +97,11 @@ enddo
  cy(8) = -1.0d0
 
  do j = 0,Ny+1
+ #ifdef FROMRIGHT
+    T(Nx+1,j) = Tin
+ #else
     T(0,j) = Tin
+ #endif
  end do
 
  do i = 0,Nx+1
@@ -140,21 +161,24 @@ enddo
    end do
  end do
 
+! Phase Field initialization: "-1" -> SOLID, "+1" -> LIQUID
  do j=0,Ny+1
   do i=0,Nx+1
 
-! Phase Field initialization: "-1" -> SOLID, "+1" -> LIQUID
   phi(i,j)      = -1.0d0
   phi_prec(i,j) = -1.0d0 
 
   enddo
  enddo
 
- do j=0,Ny+1
-!  do i=0,int(Nx/2)
-  do i=0,interf
-
 ! Phase Field initialization: "-1" -> SOLID, "+1" -> LIQUID
+ do j=0,Ny+1
+#ifdef FROMRIGHT
+  do i=Nx-interf, Nx+1
+#else
+  do i=0,interf
+#endif
+
   phi(i,j)      = 1.0d0
   phi_prec(i,j) = 1.0d0
 
