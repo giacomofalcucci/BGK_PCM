@@ -4,38 +4,61 @@
 
  interf = int(Nx/40)
 
- !rho = rho0
-! T = T0
+! Setting some constant
+
  Tin = T0 !5.d0*T0
 
  u0 = Re*kvisc/length
  v0 = 0.d0
  Mach = u0/cs
 
-do j=0,Ny+1
+! Setting initial temperature
+#ifdef FROMBOTTOM
+ do j=0, interf
+    do i =0, Nx+1
+       T(i,j)   = T0
+       rho(i,j) = rho1
+    enddo
+ enddo
+ do j=interf+1,Ny+1
+    do i =0, Nx+1
+       T(i,j)   = T_in_sol
+       rho(i,j) = rho0
+    enddo
+ enddo
+#else
  #ifdef FROMRIGHT
- do i =0, Nx-interf
-    T(i,j)   = T_in_sol
-    rho(i,j) = rho0
+ do j=0,Ny+1
+    do i =0, Nx-interf
+       T(i,j)   = T_in_sol
+       rho(i,j) = rho0
+    enddo
  enddo
  #else
- do i =0, interf
-    T(i,j)   = T0
-    rho(i,j) = rho1 
+ do j=0,Ny+1
+    do i =0, interf
+       T(i,j)   = T0
+       rho(i,j) = rho1 
+    enddo
  enddo
  #endif
+! 
  #ifdef FROMRIGHT
- do i =Nx-interf+1, Nx+1
-    T(i,j)   = T0
-    rho(i,j) = rho1 
-  enddo
+ do j=0,Ny+1
+    do i =Nx-interf+1, Nx+1
+       T(i,j)   = T0
+       rho(i,j) = rho1 
+    enddo
+ enddo
  #else
-  do i=interf+1,Nx+1
-    T(i,j)   = T_in_sol
-    rho(i,j) = rho0
-  enddo
+ do j=0,Ny+1
+    do i=interf+1,Nx+1
+       T(i,j)   = T_in_sol
+       rho(i,j) = rho0
+    enddo
+ enddo
  #endif
-enddo
+#endif
 
 
  write(*,*) '****************************************************'
@@ -76,34 +99,44 @@ enddo
  u = u0
  v = v0
 
- cx(0) = 0.0d0
- cx(1) = 1.0d0
- cx(2) = 0.0d0
+ cx(0) =  0.0d0
+ cx(1) =  1.0d0
+ cx(2) =  0.0d0
  cx(3) = -1.0d0
- cx(4) = 0.0d0
- cx(5) = 1.0d0
+ cx(4) =  0.0d0
+ cx(5) =  1.0d0
  cx(6) = -1.0d0
  cx(7) = -1.0d0
- cx(8) = 1.0d0
+ cx(8) =  1.0d0
 
- cy(0) = 0.0d0
- cy(1) = 0.0d0
- cy(2) = 1.0d0
- cy(3) = 0.0d0
+ cy(0) =  0.0d0
+ cy(1) =  0.0d0
+ cy(2) =  1.0d0
+ cy(3) =  0.0d0
  cy(4) = -1.0d0
- cy(5) = 1.0d0
- cy(6) = 1.0d0
+ cy(5) =  1.0d0
+ cy(6) =  1.0d0
  cy(7) = -1.0d0
  cy(8) = -1.0d0
 
- do j = 0,Ny+1
- #ifdef FROMRIGHT
-    T(Nx+1,j) = Tin
- #else
-    T(0,j) = Tin
- #endif
+! Setting initial temperature buffer
+#ifdef FROMBOTTOM
+ do i = 0,Ny+1
+    T(i,0) = Tin
  end do
+#else
+ #ifdef FROMRIGHT
+ do j = 0,Ny+1
+    T(Nx+1,j) = Tin
+ end do
+ #else
+ do j = 0,Ny+1
+    T(0,j) = Tin
+ end do
+ #endif
+#endif
 
+! Setting initial velocity field
  do i = 0,Nx+1
     u(i,Ny+1) = 0.d0
     v(i,Ny+1) = 0.d0
@@ -111,6 +144,7 @@ enddo
     v(i,0) = 0.d0
  end do
 
+! setting initial values (non used by default BC)
  if (westBC_st .eq. 3) then
     u = 0.d0
     v = 0.d0
@@ -129,6 +163,7 @@ enddo
     end if
  end do
 
+! setting populations
  do j = 0,Ny+1
     do i = 0,Nx+1
 
@@ -157,11 +192,10 @@ enddo
        g6(i,j) = w_eq6*T(i,j)*(1.d0-3.d0*umv+4.5d0*umv*umv-uv)
        g7(i,j) = w_eq7*T(i,j)*(1.d0-3.d0*upv+4.5d0*upv*upv-uv)
        g8(i,j) = w_eq8*T(i,j)*(1.d0+3.d0*umv+4.5d0*umv*umv-uv)
-
    end do
  end do
 
-! Phase Field initialization: "-1" -> SOLID, "+1" -> LIQUID
+! Phase Field initialization (bulk): "-1" -> SOLID, "+1" -> LIQUID
  do j=0,Ny+1
   do i=0,Nx+1
 
@@ -171,19 +205,22 @@ enddo
   enddo
  enddo
 
-! Phase Field initialization: "-1" -> SOLID, "+1" -> LIQUID
- do j=0,Ny+1
+ ! Phase Field initialization (interface): "-1" -> SOLID, "+1" -> LIQUID
 #ifdef FROMRIGHT
-  do i=Nx-interf, Nx+1
-#else
-  do i=0,interf
-#endif
-
-  phi(i,j)      = 1.0d0
-  phi_prec(i,j) = 1.0d0
-
+  do j=0,Ny+1
+     do i=Nx-interf, Nx+1
+        phi(i,j)      = 1.0d0
+        phi_prec(i,j) = 1.0d0
+     enddo
   enddo
+#else
+  do j=0,Ny+1
+     do i=0,interf
+        phi(i,j)      = 1.0d0
+        phi_prec(i,j) = 1.0d0
+     enddo
  enddo
+#endif
 
 #ifdef DEBUG
         write(6,*) "DEBUG: Completed subroutine initialization"
